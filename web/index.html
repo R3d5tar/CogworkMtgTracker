@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Cogwork MTG Tracker</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <link rel="stylesheet" href="styles/main.css" <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+    
+<!-- Main Body-->
+    <div class="container">
+        <header class="row">
+            <div class="one-third column">
+                <h1>Cog<wbr>work MTG Tracker</h1>
+            </div>
+            <div class="two-third colum">
+                <p>
+                    A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and lifetotals. Primary function
+                    is keeping track of life totals for multiple players during the game, but the goal is to be able to track
+                    various game related objects and counters.
+                </p>
+            </div>
+        </header>
+
+        <main class="row">
+
+            <div class="row actions">
+                <div class="one-third column">
+                    <h3>Setup</h2>
+                        <button class="button-primary" onclick="ui.showStartGame()">start game</button>
+                        <button class="button-primary" onclick="ui.showJoinPlayer()">join player</button>
+                        <button class="button-primary">register commander</button>
+                        <button>remove player</button>
+                        <button>remove commander</button>
+                        <button>end game</button>
+                        <button>reset game</button>
+                        <button>switch game</button>
+                </div>
+
+                <div class="one-third column">
+                    <h3>Life</h2>
+                        <button class="button-primary">deal damage</button>
+                        <button class="button-primary">gain life</button>
+                        <button>adjust life</button>
+                        <button>set life</button>
+                </div>
+
+                <div class="one-third column">
+                    <h3>Counters</h2>
+                        <button class="button-primary">increment counter</button>
+                        <button>adjust counter</button>
+                        <button>set counter</button>
+                </div>
+            </div>
+
+            <div class="row command">
+                &gt; <span class="input" contenteditable>start game</span>
+            </div>
+
+            <div class="row">
+                <pre><code id="log">[15:32:24] start game | Game 'thursday-2017/04/27-153224' started with starting life totals of 20
+[15:33:00] Anna joins game | 'Anna' joined 'thursday-2017/04/27-153224' with life total of 20
+[15:34:00] Bert joins game | 'Bert' joined 'thursday-2017/04/27-153224' with life total of 20
+[15:34:00] Cindy joins game | 'Cindy' joined 'thursday-2017/04/27-153224' with life total of 20</code></pre>
+            </div>
+
+            <div class="row display">
+                <ul data-bind="foreach: games">
+                    <li>Game '<span data-bind="text: id()"></span>' with starting life <span data-bind="text: startingLifeTotal()"></span>
+                        <ul data-bind="foreach: teams">
+                            <li><span data-bind="text: name()"></span> currently at <span data-bind="text: lifeTotal()"></span> life
+                                <ul data-bind="foreach: players">
+                                    <li data-bind="text: name()"></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="row">
+            GitHub Src: <a href="https://github.com/R3d5tar/CogworkMtgTracker" target="_blank">https://github.com/R3d5tar/CogworkMtgTracker</a>
+        </footer>
+
+    </div>
+
+<!-- Modals -->
+    <div class="modal">
+        <div class="modal-inner">
+            
+            <div id="startgame" class="modal-content">
+                <div class="modal-close-icon">
+                    <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </div>
+                <div class="modal-content-inner">
+                    <h4>Start Game</h4>
+                    <label>Starting life total:</label>
+                    <input name="lifetotal" type="number" value="-1"/>
+                </div>
+                <hr class="modal-buttons-seperator">
+                <div class="modal-buttons">
+                    <button class="button close-modal">Cancel</button>
+                    <button class="button button-primary close-modal" onclick="ui.handleStartGamePrompt()">Start</button>
+                </div>
+            </div>
+        
+            <div id="joinplayer" class="modal-content">
+                <div class="modal-close-icon">
+                    <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </div>
+                <div class="modal-content-inner">
+                    <h4>Join Player</h4>
+                    <label>Name:</label>
+                    <input name="name" type="text" value=""/>
+                </div>
+                <hr class="modal-buttons-seperator">
+                <div class="modal-buttons">
+                    <button class="button close-modal">Cancel</button>  
+                    <button class="button button-primary close-modal" onclick="ui.handleJoinPlayerPrompt()">Join</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/sprintf/dist/sprintf.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="scripts/util.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/classes.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/startup.js"></script>
+
+</body>
+
+</html>

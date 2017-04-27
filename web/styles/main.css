@@ -1,0 +1,25 @@
+.command {
+    background-color: black;
+    color: whitesmoke;
+    min-height: 20px;
+}
+
+.command.input {
+    width: 100%;
+    min-width: 100%;
+}
+
+.actions {
+    background-color: lightgray;
+    padding: 10px;
+    
+}
+
+.dispay {
+    background: green;
+}
+
+#log {
+    background: wheat;
+    padding: 24px;
+}

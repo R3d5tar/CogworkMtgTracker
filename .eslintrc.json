@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": false,
+        "node": false,
+        "jquery": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn"
+    },
+    "globals": {
+        "ui": true,
+        "api": true,
+        "gamesManager": true,
+        "modals": true,
+        "moment": true,
+        "log": true,
+        "sprintf": true,
+        "ko": true
+    }
+}
