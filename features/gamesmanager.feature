@@ -34,7 +34,18 @@ Feature: Games Manager
         Then a game was returned as primary game
         And there are 1 games registered
 
-    #Scenario: "Customizing starting life total"
-     
+    Scenario: "Customizing starting life total"
+        Given there are already 0 games registered
+        When a game "commander" starts with a starting life total of 40
+        Then there is a game "commander" registered
+        And game "commander" has a starting life total of 40
+
+        When a player "albert" joins the game "commander"
+        Then game "commander" has 1 player
+        And game "commander" has a player "albert"
+        And player "albert" has a life total of 40
+
+
+
 
 

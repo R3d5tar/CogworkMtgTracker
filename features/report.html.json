@@ -20,7 +20,7 @@
             "name": "there are already 0 games registered",
             "result": {
               "status": "passed",
-              "duration": 3
+              "duration": 2
             },
             "line": 6,
             "match": {
@@ -33,7 +33,7 @@
             "name": "a game starts",
             "result": {
               "status": "passed",
-              "duration": 9
+              "duration": 8
             },
             "line": 7,
             "match": {
@@ -46,7 +46,7 @@
             "name": "there are 1 games registered",
             "result": {
               "status": "passed",
-              "duration": 1
+              "duration": 0
             },
             "line": 8,
             "match": {
@@ -59,7 +59,7 @@
             "name": "a game starts",
             "result": {
               "status": "passed",
-              "duration": 2
+              "duration": 1
             },
             "line": 11,
             "match": {
@@ -85,7 +85,7 @@
             "name": "a game \"abc\" starts",
             "result": {
               "status": "passed",
-              "duration": 1
+              "duration": 0
             },
             "line": 15,
             "match": {
@@ -124,7 +124,7 @@
             "name": "game \"abc\" is removed",
             "result": {
               "status": "passed",
-              "duration": 0
+              "duration": 1
             },
             "line": 19,
             "match": {
@@ -137,7 +137,7 @@
             "name": "there is no game \"abc\" registered",
             "result": {
               "status": "passed",
-              "duration": 0
+              "duration": 1
             },
             "line": 20,
             "match": {
@@ -176,7 +176,7 @@
             "name": "a game was returned as primary game",
             "result": {
               "status": "passed",
-              "duration": 0
+              "duration": 1
             },
             "line": 25,
             "match": {
@@ -189,7 +189,7 @@
             "name": "a game \"efd\" starts",
             "result": {
               "status": "passed",
-              "duration": 1
+              "duration": 0
             },
             "line": 27,
             "match": {
@@ -215,7 +215,7 @@
             "name": "game \"efd\" was returned as primary game",
             "result": {
               "status": "passed",
-              "duration": 0
+              "duration": 1
             },
             "line": 29,
             "match": {
@@ -250,7 +250,7 @@
             "name": "the primary game is retrieved",
             "result": {
               "status": "passed",
-              "duration": 1
+              "duration": 2
             },
             "line": 33,
             "match": {
@@ -276,7 +276,7 @@
             "name": "there are 1 games registered",
             "result": {
               "status": "passed",
-              "duration": 1
+              "duration": 0
             },
             "line": 35,
             "match": {
@@ -284,8 +284,914 @@
             }
           }
         ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 37,
+        "name": "\"Customizing starting life total\"",
+        "tags": [],
+        "id": "games-manager;\"customizing-starting-life-total\"",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "there are already 0 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 38,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:11"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "a game \"commander\" starts with a starting life total of 40",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 39,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:75"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "there is a game \"commander\" registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 40,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:44"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "game \"commander\" has a starting life total of 40",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 41,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:81"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "a player \"albert\" joins the game \"commander\"",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 43,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:89"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "game \"commander\" has 1 player",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 44,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:98"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "game \"commander\" has a player \"albert\"",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 45,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:107"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "player \"albert\" has a life total of 40",
+            "result": {
+              "status": "passed",
+              "duration": 2
+            },
+            "line": 46,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:116"
+            }
+          }
+        ]
       }
     ],
     "id": "games-manager"
+  },
+  {
+    "description": "Important feature is the ability to track life totals.\nThis feature focusses on tracking life totals of teams.\nImportant is operations are executed against the right objects and the correct amounts.",
+    "keyword": "Feature",
+    "line": 1,
+    "name": "Life Management",
+    "tags": [],
+    "uri": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\lifeManagement.feature",
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Combat Damage",
+        "tags": [],
+        "id": "life-management;combat-damage",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Boris\" is at 20 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 12
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Boris\" is dealt 5 combat damage",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 13
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Boris\" has 15 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 14
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 19,
+        "name": "Combat Damage",
+        "tags": [],
+        "id": "life-management;combat-damage",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Boris\" is at 15 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 12
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Boris\" is dealt 3 combat damage",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 13
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Boris\" has 12 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 14
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Combat Damage",
+        "tags": [],
+        "id": "life-management;combat-damage",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Boris\" is at 4 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 12
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Boris\" is dealt 20 combat damage",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 13
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Boris\" has -16 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 14
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Life loss",
+        "tags": [],
+        "id": "life-management;life-loss",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 21 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 23
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses 15 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 24
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Amy\" has 6 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 25
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 30,
+        "name": "Life loss",
+        "tags": [],
+        "id": "life-management;life-loss",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 3 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 23
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses 5 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 24
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Amy\" has -2 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 25
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 32,
+        "name": "Set life",
+        "tags": [],
+        "id": "life-management;set-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Boris\" is at 10 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 33
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Boris\" his life is set to 13",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 34
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Boris\" has 13 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 35
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 37,
+        "name": "Exchange life",
+        "tags": [],
+        "id": "life-management;exchange-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 7 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 38
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" is at 13 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 39
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" and \"Boris\" exchange life totals",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 40
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Amy\" has 13 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 41
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" has 7 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 42
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 44,
+        "name": "Life link damage",
+        "tags": [],
+        "id": "life-management;life-link-damage",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 7 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 45
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" is at 13 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 46
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Boris\" is dealt 7 damage with lifelink by \"Amy\"",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 47
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Amy\" has 14 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 48
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" has 6 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 49
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 51,
+        "name": "Drain life",
+        "tags": [],
+        "id": "life-management;drain-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 1 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 52
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" is at 99 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 53
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" drains 50 life from \"Boris\"",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 54
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "\"Amy\" has 51 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 55
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "\"Boris\" has 49 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 56
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 64,
+        "name": "Half life",
+        "tags": [],
+        "id": "life-management;half-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 50 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 59
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses half her life rounded up",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 60
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" has 25 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 61
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 65,
+        "name": "Half life",
+        "tags": [],
+        "id": "life-management;half-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 50 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 59
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses half her life rounded down",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 60
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" has 25 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 61
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 66,
+        "name": "Half life",
+        "tags": [],
+        "id": "life-management;half-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 21 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 59
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses half her life rounded up",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 60
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" has 10 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 61
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 67,
+        "name": "Half life",
+        "tags": [],
+        "id": "life-management;half-life",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" and \"Boris\" play a game",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 8
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "the starting life total is 20",
+            "result": {
+              "status": "undefined"
+            },
+            "isBackground": true,
+            "line": 9
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "\"Amy\" is at 21 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 59
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" loses half her life rounded down",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 60
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "\"Amy\" has 11 life",
+            "result": {
+              "status": "undefined"
+            },
+            "line": 61
+          }
+        ]
+      }
+    ],
+    "id": "life-management"
   }
 ]

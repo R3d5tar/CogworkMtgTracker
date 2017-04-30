@@ -9,10 +9,10 @@ defineSupportCode(function (context) {
     var Then = context.Then;
 
     Given('there are already {int} games registered', function (int, callback) {
-        for (var i = 0; i < int; i++){
+        for (var i = 0; i < int; i++) {
             this.gamesManager.startGame();
         };
-        
+
         callback(null);
     });
 
@@ -30,7 +30,7 @@ defineSupportCode(function (context) {
 
     Then('there are {int} games registered', function (int, callback) {
         assert.equal(int, this.gamesManager.games().length);
-         
+
         callback(null);
     });
 
@@ -51,7 +51,7 @@ defineSupportCode(function (context) {
     Then('there is no game {name} registered', function (name, callback) {
         var game = this.gamesManager.findGameByName(name);
         assert.equal(game, null);
-        
+
         callback(null);
     });
 
@@ -72,4 +72,54 @@ defineSupportCode(function (context) {
         callback(null);
     });
 
+    When('a game {name} starts with a starting life total of {life}', function (name, life, callback) {
+        this.gamesManager.startGame(name, life);
+
+        callback(null);
+    });
+
+    Then('game {name} has a starting life total of {life}', function (name, life, callback) {
+        var game = this.gamesManager.findGameByName(name);
+        assert.notEqual(game, null);
+        assert.equal(game.startingLifeTotal(), life);
+
+        callback(null);
+    });
+
+    When('a player {playerName} joins the game {gameName}', function (playerName, gameName, callback) {
+        var game = this.gamesManager.findGameByName(gameName);
+        assert.notEqual(game, null);
+
+        game.joinPlayer(playerName);
+
+        callback(null);
+    });
+
+    Then('game {gameName} has {count} player', function (gameName, count, callback) {
+        var game = this.gamesManager.findGameByName(gameName);
+        assert.notEqual(game, null);
+        assert.equal(game.players().length, count);
+
+        callback(null);
+    });
+
+
+    Then('game {gameName} has a player {playerName}', function (gameName, playerName, callback) {
+        var game = this.gamesManager.findGameByName(gameName);
+        assert.notEqual(game, null);
+        var player = game.findPlayerByName(playerName);
+        assert.notEqual(player, null);
+
+        callback(null);
+    });
+
+    Then('player {playerName} has a life total of {life}', function (playerName, life, callback) {
+        var game = this.gamesManager.getPrimaryGame();
+        assert.notEqual(game, null);
+        var player = game.findPlayerByName(playerName);
+        assert.notEqual(player, null);
+        assert.equal(player.lifeTotal(), life);
+
+        callback(null);
+    });
 });
