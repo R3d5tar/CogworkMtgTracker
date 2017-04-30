@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cucumber Feature Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/foundation.min.css">
+    <style type="text/css">
+      p {
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+header {
+    background-color: #2ba6cb;
+    padding: 22px 0;
+}
+
+header h1,
+header h4 {
+    color: #fff !important;
+}
+
+header h4 {
+    font-family: "OpenSans", "Helvetica Neue", "Helvetica", Arial, Verdana, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.right-col {
+    text-align: right;
+}
+
+.highlight {
+    color: #5EC7E5;
+}
+
+    </style>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <header>
+      <div class="row">
+        <div class="large-6 columns">
+          <h1 class="subheader">coqwork-mtg-tracker</h1>
+          <h4 class="subheader">Feature tests</h4>
+        </div>
+        <div class="large-6 columns right-col">
+          <h1 class="subheader">0.0.1</h1>
+          <h4 id="buildTime" class="subheader">Sun Apr 30 2017 09:28:02 GMT+0200 (W. Europe Daylight Time)</h4>
+        </div>
+      </div>
+    </header>
+    <br /><br />
+
+    
+<div class="row">
+  <div class="large-12 columns">
+
+    <h3 class="subheader"><span class="highlight">Feature: </span>Games Manager</h3>
+    <p class="subheader">    The purpuse of the games managers is to manage which games are available and the ability to start, stop and find games.</p>
+    <br />
+    
+      <div class="section-container accordion" data-section="accordion">
+        <section>
+          <p class="title accordion-title" data-section-title><a href="#"><spa>Scenario: </span>Basic starting, finding en removing games
+          <a>
+            
+              <span class="success label right">Passed</span>
+            
+          </a>
+          </p>
+
+          <div class="content" data-section-content>
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Given </span> there are already 0 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> a game starts</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> there are 1 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> a game starts</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> there are 2 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> a game "abc" starts</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> there is a game "abc" registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">And </span> there are 3 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> game "abc" is removed</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> there is no game "abc" registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">And </span> there are 2 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> the primary game is retrieved</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> a game was returned as primary game</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Given </span> a game "efd" starts</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> the primary game is retrieved</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> game "efd" was returned as primary game</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+          </div>
+        </section>
+      </div>
+    
+      <div class="section-container accordion" data-section="accordion">
+        <section>
+          <p class="title accordion-title" data-section-title><a href="#"><spa>Scenario: </span>"Retreive primary game on empty game manager"
+          <a>
+            
+              <span class="success label right">Passed</span>
+            
+          </a>
+          </p>
+
+          <div class="content" data-section-content>
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Given </span> there are already 0 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">When </span> the primary game is retrieved</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">Then </span> a game was returned as primary game</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+
+              <p class="subheader">
+                <span class="text"><span class="keyword highlight">And </span> there are 1 games registered</span>
+		
+                <small>
+                
+                  <span class="success label right">Passed</span>
+                
+                </small>
+		
+
+        
+
+		 
+              </p>
+
+              
+
+            
+          </div>
+        </section>
+      </div>
+    
+    <br />
+    <hr />
+  </div>
+</div>
+ 
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script>
+      window.onload = function() {
+
+    //  Accordion hide/show
+    var accordionTitles = document.getElementsByClassName('accordion-title');
+
+    //  Convert node list to array
+    Array.prototype.slice.call(accordionTitles).forEach(function(title) {
+
+        title.onclick = function() {
+            var content = next(title),
+                style = window.getComputedStyle(content),
+                display = style.getPropertyValue('display');
+
+            if (display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+            return false;
+        }
+    });
+
+    //  Update build time to since
+    var buildTimeElem = document.getElementById("buildTime");
+    buildTimeElem.innerHTML = 'Built ' + moment(buildTimeElem.innerHTML).fromNow();
+};
+
+/* 
+ Credit to John Resig for this function 
+ taken from Pro JavaScript techniques 
+ */
+function next(elem) {
+    do {
+        elem = elem.nextSibling;
+    } while (elem && elem.nodeType !== 1);
+    return elem;
+}
+
+$(document).ready(function() {
+    $('a.toggle').on('click', function() {
+        if ($(this).text() === 'Screenshot -') {
+            $(this).text('Screenshot +');
+            $(this).siblings('a.screenshot').find('img').hide();
+        } else {
+            $(this).text('Screenshot -');
+            $(this).siblings('a.screenshot').find('img').show();
+        }
+    });
+});
+
+    </script>
+
+  </body>
+</html>

@@ -5,21 +5,28 @@ function GamesManager() { //eslint-disable-line no-unused-vars
 
     this.games = _games;
 
-    this.startGame = function (lifeTotal) {
+    this.startGame = function (name, lifeTotal) {
         var newGame = new Game(this);
-        if (lifeTotal == null) {
+        if (lifeTotal) {
             newGame.startingLifeTotal(lifeTotal);
         }
         else {
             newGame.startingLifeTotal(this.defaultStartingLifeTotal);
+        }
+        if (name) {
+            newGame.name(name);
         }
 
         _games.push(newGame);
         return newGame;
     }.bind(this);
 
-    this.findGame = function (gameId) {
-        return _games.find(function (game) { return game.id() === gameId; });
+    this.findGameById = function (gameId) {
+        return _games().find(function (game) { return game.id() === gameId; });
+    }
+
+    this.findGameByName = function (gameName) {
+        return _games().find(function (game) { return game.name() === gameName; });
     }
 
     this.getPrimaryGame = function () {
@@ -31,8 +38,16 @@ function GamesManager() { //eslint-disable-line no-unused-vars
         }
     }
 
+    this.removeGameByName = function (gameName) {
+        var foundGame = this.findGameByName(gameName);
+        if (foundGame !== null)
+        {
+            this.removeGame(foundGame);
+        }   
+    } 
+
     this.removeGameById = function (gameId) {
-        var foundGame = this.findGame(gameId);
+        var foundGame = this.findGameById(gameId);
         if (foundGame !== null)
         {
             this.removeGame(foundGame);
@@ -53,11 +68,12 @@ function Game(parent)
     this.parent = parent; //gameManager
     var _childern = ko.observableArray([]);
     var _id = sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));
+    this.name = ko.observable(_id.toString());
     this.startingLifeTotal = ko.observable(null);
 
     this.id = function () {
-        return _id;
-    }
+        return _id.toString();
+     }
 
     this.childeren = function () {
         return _childern().filter(function () { return true; });

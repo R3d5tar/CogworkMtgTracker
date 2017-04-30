@@ -1,0 +1,291 @@
+[
+  {
+    "description": "    The purpuse of the games managers is to manage which games are available and the ability to start, stop and find games.",
+    "keyword": "Feature",
+    "line": 1,
+    "name": "Games Manager",
+    "tags": [],
+    "uri": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\gamesmanager.feature",
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Basic starting, finding en removing games",
+        "tags": [],
+        "id": "games-manager;basic-starting,-finding-en-removing-games",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "there are already 0 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 3
+            },
+            "line": 6,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:11"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "a game starts",
+            "result": {
+              "status": "passed",
+              "duration": 9
+            },
+            "line": 7,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:19"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "there are 1 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 8,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:31"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "a game starts",
+            "result": {
+              "status": "passed",
+              "duration": 2
+            },
+            "line": 11,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:19"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "there are 2 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 12,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:31"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "a game \"abc\" starts",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 15,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:25"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "there is a game \"abc\" registered",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 16,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:44"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "there are 3 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 17,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:31"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "game \"abc\" is removed",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 19,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:38"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "there is no game \"abc\" registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 20,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:51"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "there are 2 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 21,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:31"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "the primary game is retrieved",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 24,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:58"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "a game was returned as primary game",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 25,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:63"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "a game \"efd\" starts",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 27,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:25"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "the primary game is retrieved",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 28,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:58"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "game \"efd\" was returned as primary game",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 29,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:69"
+            }
+          }
+        ]
+      },
+      {
+        "keyword": "Scenario",
+        "line": 31,
+        "name": "\"Retreive primary game on empty game manager\"",
+        "tags": [],
+        "id": "games-manager;\"retreive-primary-game-on-empty-game-manager\"",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "name": "there are already 0 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 32,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:11"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "name": "the primary game is retrieved",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 33,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:58"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "name": "a game was returned as primary game",
+            "result": {
+              "status": "passed",
+              "duration": 0
+            },
+            "line": 34,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:63"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "name": "there are 1 games registered",
+            "result": {
+              "status": "passed",
+              "duration": 1
+            },
+            "line": 35,
+            "match": {
+              "location": "F:\\Git\\Hub\\R3d5tar\\CogworkMtgTracker\\features\\step_definitions\\gamesmanager.steps.js:31"
+            }
+          }
+        ]
+      }
+    ],
+    "id": "games-manager"
+  }
+]

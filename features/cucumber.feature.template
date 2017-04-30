@@ -1,0 +1,13 @@
+Feature: Cucumber Calculator
+
+Scenario Outline: Add Numbers
+        Given a variable has value <x>
+        When added <y>
+        Then the variable has value <z>
+        Examples:
+        | x     | y     | z     |
+        | 1     | 2     | 3     |
+        | 3     | 4     | 7     |
+
+
+
