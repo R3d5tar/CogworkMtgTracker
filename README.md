@@ -7,7 +7,7 @@ A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, l
 - limited rule enforcement (user is in control, but the tracker should make it easy to track common action and states)
 - all actions are logged in a way that they are readable
 
-##nique selling point:Command-line interactions
+## Unique selling point:Command-line interactions
 The idea is that it is possible to type all game state changes in a kinda commandline / natural language. For example writing the following should do what it reads:
 + start new game
 + Adam gains 10 life
@@ -19,3 +19,7 @@ The idea is that it is possible to type all game state changes in a kinda comman
 + set Ingrids life to 35
 + Julia loses 10 life
 
+## How to install to continue developing
+npm install
+cd web
+bower install
