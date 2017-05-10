@@ -1,60 +1,49 @@
-var ui = new function () { //eslint-disable-line no-unused-vars
+define(['./modals', 'sprintf', './api', 'jquery', './log'], function (modals, sprintf, api, $, log) {
 
-    this.showStartGame = function () {
-        $("#startgame input[name='lifetotal']").first().val(gamesManager.defaultStartingLifeTotal());
-        modals.showModal("startgame");
-    }
+    var ui = new function () {
 
-    this.handleStartGamePrompt = function () {
-        var lifeTotal = $("#startgame input[name='lifetotal']").first().val();
-        var game = api.startGame(lifeTotal);
-        log.clear();
-        log.writeAction(
-            "start game " + lifeTotal, 
-            sprintf("Game '%s' started with starting life totals of %s", game.id(), game.startingLifeTotal())
-        );
-    }
+        this.showStartGame = function () {
+            $("#startgame input[name='lifetotal']").first().val(api.getDefaultStartingLifeTotal());
+            modals.showModal("startgame");
+        }
 
-    this.showJoinPlayer = function () {
-        $("#joinplayer input[name='name']").first().val("");
-        modals.showModal("joinplayer");
-    }
+        this.handleStartGamePrompt = function () {
+            var lifeTotal = $("#startgame input[name='lifetotal']").first().val();
+            var game = api.startGame(lifeTotal);
+            log.clear();
+            log.writeAction(
+                "start game " + lifeTotal,
+                sprintf.sprintf("Game '%s' started with starting life totals of %s", game.id(), game.startingLifeTotal())
+            );
+        }
 
-    this.handleJoinPlayerPrompt = function () {
-        var name = $("#joinplayer input[name='name']").first().val();
-        var player = api.joinPlayer(name);
-        log.writeAction(
-            "join player " + name, 
-            sprintf("Player '%s' joined game '%s' with %s life", player.name(), player.parent.id(), player.lifeTotal())
-        );
-    }
+        this.showJoinPlayer = function () {
+            $("#joinplayer input[name='name']").first().val("");
+            modals.showModal("joinplayer");
+        }
 
-}();
+        this.handleJoinPlayerPrompt = function () {
+            var name = $("#joinplayer input[name='name']").first().val();
+            var player = api.joinPlayer(name);
+            log.writeAction(
+                "join player " + name,
+                sprintf.sprintf("Player '%s' joined game '%s' with %s life", player.name(), player.parent.id(), player.lifeTotal())
+            );
+        }
 
+        // this.showGeneralNumberAndDropdown = function (title, label, value, confirmLabel, confirmCallback) {
+        //     var id = "generalNumberAndDropdown";
+        // };
 
-var log = new function ()
-{
-    var _out = null;
+        // this.showDealDamage = function () {
+        //     this.showGeneralNumber()
+        // }
 
-    this.init = function (element) {
-        _out = element;
-    }
+        // this.showGainLife;
+        // this.adjustLifeTotal;
+        // this.setLifeTotal;
 
-    this.writeAction = function (action, result) {
-        this.writeLine(
-            sprintf("%s | %s", action, result));
-    }
+    }();
+    return ui;
 
-    this.writeLine = function (line) {
-        _out.innerText += sprintf("\n\r [%s] %s", timestamp(), line);
-        _out.innerText = _out.innerText.trim();
-    }
-
-    this.clear = function () {
-        _out.innerText = "";
-    }
-
-    function timestamp() {
-        return moment().format("HH:mm:ss");
-    }
-}();
+});

@@ -20,6 +20,20 @@ The idea is that it is possible to type all game state changes in a kinda comman
 + Julia loses 10 life
 
 ## How to install to continue developing
+```cmd
 npm install
-cd web
+pushd web
 bower install
+popd
+
+```
+## Run tests
+```cmd
+npm test
+```
+
+## Run simple webserver for testing purpose
+```cmd
+npm install http-server -g
+http-server
+```

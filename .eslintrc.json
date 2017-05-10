@@ -4,7 +4,7 @@
         "commonjs": true,
         "es6": false,
         "node": false,
-        "jquery": true,
+        "jquery": true
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -22,13 +22,7 @@
         "valid-typeof": "warn"
     },
     "globals": {
-        "ui": true,
-        "api": true,
-        "gamesManager": true,
-        "modals": true,
-        "moment": true,
-        "log": true,
-        "sprintf": true,
-        "ko": true
+        "define": true,
+        "requirejs": true
     }
 }

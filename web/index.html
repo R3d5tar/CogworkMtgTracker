@@ -42,8 +42,8 @@
             <div class="row actions">
                 <div class="one-third column">
                     <h3>Setup</h2>
-                        <button class="button-primary" onclick="ui.showStartGame()">start game</button>
-                        <button class="button-primary" onclick="ui.showJoinPlayer()">join player</button>
+                        <button class="button-primary" data-bind="click: ui.showStartGame">start game</button>
+                        <button class="button-primary" data-bind="click:ui.showJoinPlayer">join player</button>
                         <button class="button-primary">register commander</button>
                         <button>remove player</button>
                         <button>remove commander</button>
@@ -54,10 +54,10 @@
 
                 <div class="one-third column">
                     <h3>Life</h2>
-                        <button class="button-primary">deal damage</button>
-                        <button class="button-primary">gain life</button>
-                        <button>adjust life</button>
-                        <button>set life</button>
+                        <button class="button-primary" data-bind="ui.showDealDamage">deal damage</button>
+                        <button class="button-primary" data-bind="ui.showGainLife">gain life</button>
+                        <button data-bind="ui.adjustLifeTotal">adjust life</button>
+                        <button data-bind="ui.setLifeTotal">set life</button>
                 </div>
 
                 <div class="one-third column">
@@ -80,7 +80,7 @@
             </div>
 
             <div class="row display">
-                <ul data-bind="foreach: games">
+                <ul data-bind="foreach: manager.games">
                     <li>Game '<span data-bind="text: id()"></span>' with starting life <span data-bind="text: startingLifeTotal()"></span>
                         <ul data-bind="foreach: teams">
                             <li><span data-bind="text: name()"></span> currently at <span data-bind="text: lifeTotal()"></span> life
@@ -104,6 +104,11 @@
     <div class="modal">
         <div class="modal-inner">
             
+            <div data-bind='component: {
+                name: "update-player-lifetotal-modal",
+                params: { callback: ui.processAdjustLife }
+            }'></div>
+
             <div id="startgame" class="modal-content">
                 <div class="modal-close-icon">
                     <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -138,17 +143,17 @@
         </div>
     </div>
 
-
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/moment/min/moment.min.js"></script>
-    <script src="bower_components/sprintf/dist/sprintf.min.js"></script>
-    <script src="bower_components/knockout/dist/knockout.js"></script>
-    <script src="scripts/util.js"></script>
+    <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+    <!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="bower_components/moment/min/moment.min.js"></script>-->
+    <!--<script src="bower_components/sprintf/dist/sprintf.min.js"></script>-->
+    <!--<script src="bower_components/knockout/dist/knockout.js"></script>-->
+    <!--<script src="scripts/util.js"></script>
     <script src="scripts/modal.js"></script>
     <script src="scripts/classes.js"></script>
     <script src="scripts/api.js"></script>
     <script src="scripts/ui.js"></script>
-    <script src="scripts/startup.js"></script>
+    <script src="scripts/startup.js"></script>-->
 
 </body>
 

@@ -1,32 +1,38 @@
+var requirejs = require('requirejs');
+
+requirejs.config({
+
+    baseUrl: process.cwd() + '/web', //eslint-disable-line
+    paths: {
+        jquery: 'bower_components/jquery/dist/jquery',
+        ko: 'bower_components/knockout/dist/knockout',
+        moment: 'bower_components/moment/min/moment.min',
+        sprintf: 'bower_components/sprintf/src/sprintf',
+        text: 'bower_components/text/text'
+    },
+    nodeRequire: require
+
+});
+
 var { defineSupportCode } = require('cucumber');
-var assert = require('assert');
-var execfile = require(process.cwd() + '/features/tools/execfile.js')
-
-var sut = {};
-
-execfile(process.cwd() + '/web/bower_components/moment/min/moment.min.js', sut);
-execfile(process.cwd() + '/web/bower_components/sprintf/dist/sprintf.min.js', sut);
-execfile(process.cwd() + '/web/scripts/util.js', sut);
-sut.ko = require(process.cwd() + '/web/bower_components/knockout/dist/knockout.js');
-
-execfile(process.cwd() + '/web/scripts/classes.js', sut);
 
 defineSupportCode(function (context) {
-    var setWorldConstructor = context.setWorldConstructor;
+    requirejs(['scripts/classes/gamesmanager'], function (GamesManager) {
 
-    //setup World    
-    var theWorld = function () {
-        /*
-        // used by template
-        this.calculator = {
-             variableX: null,
-             variableY: null
-         };
-         */
+        var setWorldConstructor = context.setWorldConstructor;
 
-        this.gamesManager = new sut.GamesManager();
-        this.cache = {};
-    };
+        console.log("~ Setting up world-constructor for CogworkMTGTracker tests ~");
 
-    setWorldConstructor(theWorld);
+        //setup World    
+        var cogWorkMtgTrackerWorld = function () {
+            
+            this.gamesManager = new GamesManager();
+            this.cache = {};
+
+        };
+
+        setWorldConstructor(cogWorkMtgTrackerWorld);
+
+    });
+
 });

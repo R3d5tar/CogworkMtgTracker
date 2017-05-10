@@ -11,10 +11,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "cucumber": "latest",
-    "grunt": "^1.0.1",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-cucumberjs": "^1.0.0",
-    "wd": "^1.2.0"
+    "cucumber": "latest"
   }
 }
