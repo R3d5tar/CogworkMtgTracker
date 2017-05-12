@@ -4,15 +4,15 @@ define([], function () {
 
         this.init = function (gamesManager) {
             _gamesManager = gamesManager;
-        }
+        };
 
-        this.startGame = function (lifeTotal) {
-            return _gamesManager.startGame(lifeTotal);
+        this.startGame = function (name, lifeTotal) {
+            return _gamesManager.startGame(name, lifeTotal);
         };
 
         this.getGameById = function (gameId) {
-            return _gamesManager.getGameById(gameId);
-        }
+            return _gamesManager.findGameById(gameId);
+        };
 
         this.joinPlayer = function (name, gameId) {
             var game = null;
@@ -23,10 +23,18 @@ define([], function () {
                 game = _gamesManager.getPrimaryGame();
             }
             return game.joinPlayer(name);
-        }
+        };
 
         this.getDefaultStartingLifeTotal = function () {
             return _gamesManager.defaultStartingLifeTotal();
+        };
+
+        this.getGameNameSuggestion = function () {
+            return _gamesManager.getGameNameSuggestion();
+        };
+
+        this.getGames = function () {
+            return _gamesManager.getGames();
         };
 
     }();

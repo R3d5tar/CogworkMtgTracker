@@ -1,47 +1,80 @@
-define(['./modals', 'sprintf', './api', 'jquery', './log'], function (modals, sprintf, api, $, log) {
+define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, sprintf, api, log, Modal) {
 
     var ui = new function () {
+        var self = this;
 
-        this.showStartGame = function () {
-            $("#startgame input[name='lifetotal']").first().val(api.getDefaultStartingLifeTotal());
-            modals.showModal("startgame");
+        /* context */
+        this.activeGame = null;
+        //this.activeTeamId = ko.observable(null);
+        //this.activePlayerId = ko.observable(null);
+
+        /* modals */
+        // // use for trouble shooting, when necesary
+        // this.firstModal = new Modal(function () {
+        //     alert('OK');
+        //     this.active(false);
+        // });
+
+        this.startGameModal = new Modal(
+            function ok() {
+                this.active(false);
+                var game = api.startGame(
+                        self.startGameModal.gameName(),
+                        self.startGameModal.startingLifeTotal()
+                );
+                log.clear();
+                log.writeAction(
+                    sprintf.sprintf("start game %s", game.startingLifeTotal()),
+                    sprintf.sprintf("Game '%s' started with starting life totals of %s [gid=%s]", game.name(), game.startingLifeTotal(), game.id())
+                );
+                self.activeGame = game;
+            });
+        this.startGameModal.startingLifeTotal = ko.observable();
+        this.startGameModal.gameName = ko.observable();
+        this.startGameModal.show = function () {
+            var _ = self.startGameModal
+            _.startingLifeTotal(api.getDefaultStartingLifeTotal());
+            _.gameName(api.getGameNameSuggestion());
+            _.active(true);
         }
 
-        this.handleStartGamePrompt = function () {
-            var lifeTotal = $("#startgame input[name='lifetotal']").first().val();
-            var game = api.startGame(lifeTotal);
-            log.clear();
-            log.writeAction(
-                "start game " + lifeTotal,
-                sprintf.sprintf("Game '%s' started with starting life totals of %s", game.id(), game.startingLifeTotal())
-            );
+        this.joinPlayerModal = new Modal(
+            function ok () { //TODO: validate player name before closing...
+                this.active(false);
+                var _ = self.joinPlayerModal;
+                var player = api.joinPlayer(_.playerName(), _.gameSelected());
+                log.writeAction(
+                    sprintf.sprintf("join %s to %s", player.name(), _.gameSelected()),
+                    sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]", 
+                        player.name(), _.gameSelected(), player.lifeTotal(), _.gameSelected(), player.id())
+                ); //TODO: show game name instead of game id
+                self.activePlayer = player;
+            });
+        this.joinPlayerModal.playerName = ko.observable();
+        this.joinPlayerModal.games = ko.observableArray();
+        this.joinPlayerModal.gameSelected = ko.observable();
+        this.joinPlayerModal.show = function () {
+            var _ = self.joinPlayerModal;
+            _.playerName("");
+            _.games(api.getGames());
+            _.gameSelected(self.activeGame.id());
+            _.active(true);
         }
 
-        this.showJoinPlayer = function () {
-            $("#joinplayer input[name='name']").first().val("");
-            modals.showModal("joinplayer");
-        }
+        /* generic logic */
+        this.modals = ko.observableArray([
+            //this.firstModal, 
+            this.startGameModal,
+            this.joinPlayerModal
+        ]);
 
-        this.handleJoinPlayerPrompt = function () {
-            var name = $("#joinplayer input[name='name']").first().val();
-            var player = api.joinPlayer(name);
-            log.writeAction(
-                "join player " + name,
-                sprintf.sprintf("Player '%s' joined game '%s' with %s life", player.name(), player.parent.id(), player.lifeTotal())
-            );
-        }
+        this.modalActive = ko.computed(function () {
+            return this.modals().some(function (_) { return _.active() })
+        }, this);
 
-        // this.showGeneralNumberAndDropdown = function (title, label, value, confirmLabel, confirmCallback) {
-        //     var id = "generalNumberAndDropdown";
-        // };
-
-        // this.showDealDamage = function () {
-        //     this.showGeneralNumber()
-        // }
-
-        // this.showGainLife;
-        // this.adjustLifeTotal;
-        // this.setLifeTotal;
+        this.closeModal = function () {
+            self.modals().forEach(function (_) { _.active(false); });
+        }.bind(this);
 
     }();
     return ui;

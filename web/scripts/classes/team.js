@@ -1,16 +1,21 @@
-define(['ko', './player', 'scripts/tools/guid'], function (ko, Player, guid) {
+define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
     
     return function Team(parent, lifeTotal) {
+        var _id = "team-" + utils.guid();
         this.types = ["team"];
         this.parent = parent; //game
         var _players = ko.observableArray([]);
-        var _internalName = "team-" + guid();
+        
         this.lifeTotal = ko.observable(lifeTotal);
         this.players = _players;
 
+        this.id = ko.computed(function () {
+            return _id;
+        });
+
         this.name = ko.computed(function () {
             if (_players().length === 0) {
-                return _internalName;
+                return _id;
             }
             else {
                 var name = "";

@@ -1,11 +1,13 @@
-define(['ko', './game'], function (ko, Game) {
+define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, Game, sprintf, moment, utils) {
 
     return function GamesManager() {
         var _games = ko.observableArray([]);
 
         this.defaultStartingLifeTotal = ko.observable(20);
 
-        this.games = _games;
+        this.getGameNameSuggestion = function () {
+            return sprintf.sprintf("%s %s Magic", moment().format("dddd"), utils.timeOfDayName());
+        }
 
         this.startGame = function (name, lifeTotal) {
             var newGame = new Game(this);
@@ -13,7 +15,7 @@ define(['ko', './game'], function (ko, Game) {
                 newGame.startingLifeTotal(lifeTotal);
             }
             else {
-                newGame.startingLifeTotal(this.defaultStartingLifeTotal);
+                newGame.startingLifeTotal(this.defaultStartingLifeTotal());
             }
             if (name) {
                 newGame.name(name);
@@ -60,6 +62,10 @@ define(['ko', './game'], function (ko, Game) {
                 _games().splice(index, 1);
             }
         }.bind(this);
+
+        this.getGames = function () {
+            return _games();
+        }
     }
 
 });

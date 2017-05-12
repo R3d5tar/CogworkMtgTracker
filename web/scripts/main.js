@@ -20,20 +20,19 @@ requirejs(
 
         log.init(document.getElementById("log"));
 
-        ko.components.register('update-player-lifetotal-modal', {
-            viewModel: { require: 'components/update-player-lifetotal-modal' },
-            template: { require: 'text!components/update-player-lifetotal-modal.html' }
+        ko.components.register('basic-modal', {
+            viewModel: { require: 'components/basic-modal' },
+            template: { require: 'text!components/basic-modal.html' }
         });
-
         
-        var vm = {
+        var viewModel = {
             manager: new GamesManager(),
             ui: ui,
             api: api,
             log: log
         }
-        api.init(vm.manager);
+        api.init(viewModel.manager);
 
-        ko.applyBindings(vm);
+        ko.applyBindings(viewModel);
     }
 );

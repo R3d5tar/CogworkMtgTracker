@@ -29,7 +29,7 @@ defineSupportCode(function (context) {
     });
 
     Then('there are {int} games registered', function (int, callback) {
-        assert.equal(int, this.gamesManager.games().length);
+        assert.equal(int, this.gamesManager.getGames().length);
 
         callback(null);
     });

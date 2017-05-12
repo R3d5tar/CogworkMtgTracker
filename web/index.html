@@ -15,8 +15,10 @@
     <!-- CSS -->
     <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css">
     <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/main.css" <!-- Favicon -->
+    <link rel="stylesheet" href="styles/main.css"> 
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
@@ -42,22 +44,30 @@
             <div class="row actions">
                 <div class="one-third column">
                     <h3>Setup</h2>
-                        <button class="button-primary" data-bind="click: ui.showStartGame">start game</button>
-                        <button class="button-primary" data-bind="click:ui.showJoinPlayer">join player</button>
-                        <button class="button-primary">register commander</button>
+                    
+                        <button class="button-primary" data-bind="click: ui.startGameModal.show">
+                            <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>
+                            start game
+                        </button>
+                        <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
+                            <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
+                            join player
+                        </button> <!-- TODO: disable when no games exist -->
+                        <!--<button class="button-primary">register commander</button>
                         <button>remove player</button>
                         <button>remove commander</button>
                         <button>end game</button>
                         <button>reset game</button>
-                        <button>switch game</button>
+                        <button>switch game</button>-->
+                        <!--<button data-bind="click: ui.firstModal.show">first modal</button>-->
                 </div>
 
                 <div class="one-third column">
                     <h3>Life</h2>
-                        <button class="button-primary" data-bind="ui.showDealDamage">deal damage</button>
-                        <button class="button-primary" data-bind="ui.showGainLife">gain life</button>
-                        <button data-bind="ui.adjustLifeTotal">adjust life</button>
-                        <button data-bind="ui.setLifeTotal">set life</button>
+                        <!--<button class="button-primary" data-bind="click: ui.dealDamageModal.show">deal damage</button>
+                        <button class="button-primary" data-bind="click: ui.gainLifeModal.show">gain life</button>
+                        <button data-bind="click: ui.adjustLifeModal.show">adjust life</button>
+                        <button data-bind="click: ui.setLifeModal.show">set life</button>-->
                 </div>
 
                 <div class="one-third column">
@@ -72,7 +82,7 @@
                 &gt; <span class="input" contenteditable>start game</span>
             </div>
 
-            <div class="row">
+            <div class="row"> <!-- TODO: clear sample content -->
                 <pre><code id="log">[15:32:24] start game | Game 'thursday-2017/04/27-153224' started with starting life totals of 20
 [15:33:00] Anna joins game | 'Anna' joined 'thursday-2017/04/27-153224' with life total of 20
 [15:34:00] Bert joins game | 'Bert' joined 'thursday-2017/04/27-153224' with life total of 20
@@ -81,7 +91,11 @@
 
             <div class="row display">
                 <ul data-bind="foreach: manager.games">
-                    <li>Game '<span data-bind="text: id()"></span>' with starting life <span data-bind="text: startingLifeTotal()"></span>
+                    <li>
+                        Game '<span data-bind="text: name()"></span>' 
+                        with starting life <span data-bind="text: startingLifeTotal()"></span>
+                        <sup><span data-bind="text: id()"></span></sup>
+
                         <ul data-bind="foreach: teams">
                             <li><span data-bind="text: name()"></span> currently at <span data-bind="text: lifeTotal()"></span> life
                                 <ul data-bind="foreach: players">
@@ -100,60 +114,50 @@
 
     </div>
 
-<!-- Modals -->
-    <div class="modal">
-        <div class="modal-inner">
-            
-            <div data-bind='component: {
-                name: "update-player-lifetotal-modal",
-                params: { callback: ui.processAdjustLife }
-            }'></div>
+    <!-- Modals -->
+    <div class="modal" data-bind="css: {'modal-open': ui.modalActive}, click: ui.closeModal">
+        <div class="modal-inner" data-bind="with: ui">
+            <!--<basic-modal params="active: firstModal.active, 
+                                 okCallback: firstModal.okCallback,
+                                 cancelCallback: firstModal.cancelCallback,
+                                 title: 'First Modal',
+                                 message: 'This is my first reusable modal',
+                                 with: null">
+                <b>Boeya</b>
+            </basic-modal>-->
 
-            <div id="startgame" class="modal-content">
-                <div class="modal-close-icon">
-                    <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <basic-modal params="active: startGameModal.active, 
+                                 okCallback: startGameModal.okCallback,
+                                 cancelCallback: startGameModal.cancelCallback,
+                                 title: 'Start new game',
+                                 message: null,
+                                 with: startGameModal">
+                <label>Game name:</label>
+                <input name="name" type="text" data-bind="value: gameName" />
+                <label>Players (or teams) starting life total:</label>
+                <input name="lifetotal" type="number" data-bind="value: startingLifeTotal" />
+                <!-- TODO: create a reusable / touch friendly number input box, if needed after testing... -->
+            </basic-modal>
+                    
+            <basic-modal params="active: joinPlayerModal.active, 
+                                 okCallback: joinPlayerModal.okCallback,
+                                 cancelCallback: joinPlayerModal.cancelCallback,
+                                 title: 'Join player to game',
+                                 message: null,
+                                 with: joinPlayerModal">
+                <label>Player name:</label>
+                <input name="name" type="text" data-bind="value: playerName" required />
+                <label>Will join game:</label>
+                <div data-bind="foreach: games">
+                    <input type="radio" data-bind="checkedValue: id, checked: $parent.gameSelected" />
+                    <span data-bind="text: name"></span>
+                    <sup data-bind="text: id"></sup>
                 </div>
-                <div class="modal-content-inner">
-                    <h4>Start Game</h4>
-                    <label>Starting life total:</label>
-                    <input name="lifetotal" type="number" value="-1"/>
-                </div>
-                <hr class="modal-buttons-seperator">
-                <div class="modal-buttons">
-                    <button class="button close-modal">Cancel</button>
-                    <button class="button button-primary close-modal" onclick="ui.handleStartGamePrompt()">Start</button>
-                </div>
-            </div>
-        
-            <div id="joinplayer" class="modal-content">
-                <div class="modal-close-icon">
-                    <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
-                </div>
-                <div class="modal-content-inner">
-                    <h4>Join Player</h4>
-                    <label>Name:</label>
-                    <input name="name" type="text" value=""/>
-                </div>
-                <hr class="modal-buttons-seperator">
-                <div class="modal-buttons">
-                    <button class="button close-modal">Cancel</button>  
-                    <button class="button button-primary close-modal" onclick="ui.handleJoinPlayerPrompt()">Join</button>
-                </div>
-            </div>
+            </basic-modal>
         </div>
     </div>
 
     <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
-    <!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
-    <!--<script src="bower_components/moment/min/moment.min.js"></script>-->
-    <!--<script src="bower_components/sprintf/dist/sprintf.min.js"></script>-->
-    <!--<script src="bower_components/knockout/dist/knockout.js"></script>-->
-    <!--<script src="scripts/util.js"></script>
-    <script src="scripts/modal.js"></script>
-    <script src="scripts/classes.js"></script>
-    <script src="scripts/api.js"></script>
-    <script src="scripts/ui.js"></script>
-    <script src="scripts/startup.js"></script>-->
 
 </body>
 

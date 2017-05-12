@@ -40,7 +40,7 @@
   visibility: visible;
   backface-visibility: visible;
   opacity: 1;
-  display: initial;
+  display: block;
 }
 
 .modal .modal-inner .modal-content .modal-close-icon {

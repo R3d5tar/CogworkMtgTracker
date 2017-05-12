@@ -1,12 +1,16 @@
-define(['ko'], function (ko) {
+define(['ko', 'scripts/tools/utils'], function (ko, utils) {
     
     return function Player(parent, team, name) {
+        var _id = "player-" + utils.guid();
         this.types = ["player"];
         this.parent = parent; //game
         this.team = ko.observable(team);
         this.name = ko.observable(name);
-
         this.team().addPlayer(this);
+
+        this.id = ko.computed(function () {
+            return _id;
+        });
 
         this.lifeTotal = function () {
             return this.team().lifeTotal();

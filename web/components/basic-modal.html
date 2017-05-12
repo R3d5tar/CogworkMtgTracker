@@ -1,0 +1,15 @@
+<div class="modal-content" data-bind="css: {'modal-open': active}, click: stopPropagation">
+    <div class="modal-close-icon">
+        <a href="#" data-bind="click: cancelCallback"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="modal-content-inner">
+        <h4 data-bind="text: title"></h4>
+        <p data-bind="text: message"></p>
+    </div>
+    <!-- ko template: { nodes: $componentTemplateNodes, data: context } --><!-- /ko -->
+    <hr class="modal-buttons-seperator">
+    <div class="modal-buttons">
+        <button class="button" data-bind="text: buttonNegative, click: cancelCallback"></button>
+        <button class="button button-primary" data-bind="text: buttonPositive, click: okCallback"></button>
+    </div>
+</div>

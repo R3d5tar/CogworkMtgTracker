@@ -1,4 +1,5 @@
 define(['sprintf', 'moment'], function (sprintf, moment) {
+    //TODO: rewrite to pure KO.
     return new function () {
         var _out = null;
 

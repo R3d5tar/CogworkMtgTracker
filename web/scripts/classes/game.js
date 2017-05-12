@@ -1,15 +1,15 @@
 define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf, moment, Team, Player) {
 
     return function Game(parent) {
+        var _id = sprintf.sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));
         this.parent = parent; //gameManager
         var _childern = ko.observableArray([]);
-        var _id = sprintf.sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));
         this.name = ko.observable(_id.toString());
         this.startingLifeTotal = ko.observable(null);
 
-        this.id = function () {
+        this.id = ko.computed(function () {
             return _id.toString();
-        }
+        });
 
         this.childeren = function () {
             return _childern().filter(function () { return true; });
