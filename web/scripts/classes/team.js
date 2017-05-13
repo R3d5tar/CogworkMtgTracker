@@ -57,9 +57,9 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             this.adjustLifeTotal(+1 * damage);
         }
 
-        this.drainsLife = function (points, players) {
+        this.drainsLife = function (points, otherPlayers) {
             var totalDrain = 0;
-            players.forEach(
+            otherPlayers.forEach(
                 function (player) {
                     player.loseLife(points);
                     totalDrain += points;
@@ -67,6 +67,19 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             );
 
             this.adjustLifeTotal(+1 * totalDrain);
+        }
+
+        this.toJsonObject = function () {
+            var result = {
+                "id": _id,
+                "lifeTotal": this.lifeTotal(),
+                "players": []
+            };
+            this.players().forEach(
+                function (player) {
+                    result.players.pop(player.toJsonObject());
+                });
+            return result;
         }
     }
 

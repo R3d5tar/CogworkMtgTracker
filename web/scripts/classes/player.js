@@ -51,6 +51,12 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
             }
         }
 
+        this.toJsonObject = function () {
+            return {
+                "id": _id,
+                "name": this.name()
+            };
+        }
     }
 
 });

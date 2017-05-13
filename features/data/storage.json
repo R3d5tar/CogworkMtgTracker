@@ -1,0 +1,33 @@
+{
+	"gameManager": {
+		"games": [
+			{	
+				"id": "game-timestamp",
+				"name": "Saterday Night Fever",
+				"startingLifeTotal": 20,
+				"teams": [
+					{
+						"id": "team-guid",
+						"lifeTotal": 14,
+						"players": [
+							{
+								"id": "player-guid",
+								"name": "Amy"
+							}
+						]
+					},
+					{
+                        "id": "team-guid",
+						"lifeTotal": 25,
+						"players": [
+                            {
+                                "id": "player-guid",
+                                "name": "Sheldon"
+                            }
+						]
+					}
+				]
+			}
+		]
+	}
+}
