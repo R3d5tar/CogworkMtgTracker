@@ -17,14 +17,14 @@
     <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/main.css"> 
+    <link rel="stylesheet" href="styles/main.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
 <body>
-    
-<!-- Main Body-->
+
+    <!-- Main Body-->
     <div class="container">
         <header class="row">
             <div class="one-third column">
@@ -44,7 +44,7 @@
             <div class="row actions">
                 <div class="one-third column">
                     <h3>Setup</h2>
-                    
+
                         <button class="button-primary" data-bind="click: ui.startGameModal.show">
                             <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>
                             start game
@@ -52,7 +52,8 @@
                         <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
                             <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
                             join player
-                        </button> <!-- TODO: disable when no games exist -->
+                        </button>
+                        <!-- TODO: disable when no games exist -->
                         <!--<button class="button-primary">register commander</button>
                         <button>remove player</button>
                         <button>remove commander</button>
@@ -82,24 +83,20 @@
                 &gt; <span class="input" contenteditable>start game</span>
             </div>
 
-            <div class="row"> <!-- TODO: clear sample content -->
-                <pre><code id="log">[15:32:24] start game | Game 'thursday-2017/04/27-153224' started with starting life totals of 20
-[15:33:00] Anna joins game | 'Anna' joined 'thursday-2017/04/27-153224' with life total of 20
-[15:34:00] Bert joins game | 'Bert' joined 'thursday-2017/04/27-153224' with life total of 20
-[15:34:00] Cindy joins game | 'Cindy' joined 'thursday-2017/04/27-153224' with life total of 20</code></pre>
+            <div class="row">
+                <pre><code id="log"></code></pre>
             </div>
 
             <div class="row display">
                 <ul data-bind="foreach: manager.games">
                     <li>
-                        Game '<span data-bind="text: name()"></span>' 
-                        with starting life <span data-bind="text: startingLifeTotal()"></span>
-                        <sup><span data-bind="text: id()"></span></sup>
+                        Game '<span data-bind="text: name"></span>' with starting life <span data-bind="text: startingLifeTotal"></span>
+                        <sup><span data-bind="text: id"></span></sup>
 
                         <ul data-bind="foreach: teams">
-                            <li><span data-bind="text: name()"></span> currently at <span data-bind="text: lifeTotal()"></span> life
+                            <li><span data-bind="text: name"></span> currently at <span data-bind="text: lifeTotal"></span> life
                                 <ul data-bind="foreach: players">
-                                    <li data-bind="text: name()"></li>
+                                    <li data-bind="text: name"></li>
                                 </ul>
                             </li>
                         </ul>
@@ -138,7 +135,7 @@
                 <input name="lifetotal" type="number" data-bind="value: startingLifeTotal" />
                 <!-- TODO: create a reusable / touch friendly number input box, if needed after testing... -->
             </basic-modal>
-                    
+
             <basic-modal params="active: joinPlayerModal.active, 
                                  okCallback: joinPlayerModal.okCallback,
                                  cancelCallback: joinPlayerModal.cancelCallback,
@@ -146,12 +143,16 @@
                                  message: null,
                                  with: joinPlayerModal">
                 <label>Player name:</label>
-                <input name="name" type="text" data-bind="value: playerName" required />
+                <input name="name" type="text" data-bind="value: playerName" required="required" />
                 <label>Will join game:</label>
                 <div data-bind="foreach: games">
-                    <input type="radio" data-bind="checkedValue: id, checked: $parent.gameSelected" />
-                    <span data-bind="text: name"></span>
-                    <sup data-bind="text: id"></sup>
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
                 </div>
             </basic-modal>
         </div>

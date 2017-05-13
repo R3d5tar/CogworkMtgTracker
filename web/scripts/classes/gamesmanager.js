@@ -2,6 +2,7 @@ define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, 
 
     return function GamesManager() {
         var _games = ko.observableArray([]);
+        this.games = _games; //only for usage in display 
 
         this.defaultStartingLifeTotal = ko.observable(20);
 

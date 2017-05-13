@@ -22,7 +22,6 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
                         self.startGameModal.gameName(),
                         self.startGameModal.startingLifeTotal()
                 );
-                log.clear();
                 log.writeAction(
                     sprintf.sprintf("start game %s", game.startingLifeTotal()),
                     sprintf.sprintf("Game '%s' started with starting life totals of %s [gid=%s]", game.name(), game.startingLifeTotal(), game.id())
@@ -39,15 +38,15 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
         }
 
         this.joinPlayerModal = new Modal(
-            function ok () { //TODO: validate player name before closing...
+            function ok () {
                 this.active(false);
                 var _ = self.joinPlayerModal;
-                var player = api.joinPlayer(_.playerName(), _.gameSelected());
+                var player = api.joinPlayer(_.playerName(), _.gameSelected().id());
                 log.writeAction(
-                    sprintf.sprintf("join %s to %s", player.name(), _.gameSelected()),
+                    sprintf.sprintf("join %s to %s", player.name(), _.gameSelected().name()),
                     sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]", 
-                        player.name(), _.gameSelected(), player.lifeTotal(), _.gameSelected(), player.id())
-                ); //TODO: show game name instead of game id
+                        player.name(), _.gameSelected().name(), player.lifeTotal(), _.gameSelected().id(), player.id())
+                );
                 self.activePlayer = player;
             });
         this.joinPlayerModal.playerName = ko.observable();
@@ -57,7 +56,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             var _ = self.joinPlayerModal;
             _.playerName("");
             _.games(api.getGames());
-            _.gameSelected(self.activeGame.id());
+            _.gameSelected(self.activeGame);
             _.active(true);
         }
 
@@ -74,6 +73,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
 
         this.closeModal = function () {
             self.modals().forEach(function (_) { _.active(false); });
+            return true; //ensure other actions.
         }.bind(this);
 
     }();

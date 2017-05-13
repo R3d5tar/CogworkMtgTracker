@@ -1,16 +1,19 @@
-define ([], function () {
+define(['jquery', 'jquery.validate'], function ($) {
+    $(document).ready(function () {
+        $('form').validate();
+    });
 
-return function BasicModal(params) {
-        this.active         = params.active; //TODO: build in fallback to with/context...
-        this.title          = params.title;
-        this.message        = params.message;
-        this.context        = params.with;
+    return function BasicModal(params) {
+        this.active = params.active; //TODO: build in fallback to with/context...
+        this.title = params.title;
+        this.message = params.message;
+        this.context = params.with;
 
         //TODO: build in fallback to with/context...
         this.okCallback = function () { this.active(false) };
         if (params.okCallback)
-            this.okCallback     = params.okCallback;
-        
+            this.okCallback = params.okCallback;
+
         //TODO: build in fallback to with/context...
         this.cancelCallback = function () { this.active(false) };
         if (params.cancelCallback)
@@ -18,14 +21,17 @@ return function BasicModal(params) {
 
         this.buttonNegative = "Cancel";
         if (params.buttonNegative)
-            this.buttonNegative = params.buttonNegative; 
-        
+            this.buttonNegative = params.buttonNegative;
+
         this.buttonPositive = "OK";
         if (params.buttonPositive)
-            this.buttonPositive = params.buttonPositive; 
+            this.buttonPositive = params.buttonPositive;
 
-        this.stopPropagation = function (context, event) {
-            event.stopPropagation();
+        this.internalSubmit = function (form) {
+            if ($(form).valid()) {
+                this.okCallback();
+            }
+            return false; //stopDefaultActions
         }
     }
 

@@ -6,6 +6,7 @@ requirejs.config({
     baseUrl: '',
     paths: {
         jquery: 'bower_components/jquery/dist/jquery',
+        'jquery.validate': 'bower_components/jquery-validation/dist/jquery.validate.min',
         ko: 'bower_components/knockout/dist/knockout',
         moment: 'bower_components/moment/min/moment.min',
         sprintf: 'bower_components/sprintf/src/sprintf',

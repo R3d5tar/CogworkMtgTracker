@@ -23,3 +23,15 @@
     background: wheat;
     padding: 24px;
 }
+
+label.error {
+    color: darkred;
+    font-size: 8pt;
+    /* compensate margins of Skeleton */
+    margin-top: -1.5rem; 
+    height: 1.0rem;
+}
+
+input.error {
+    border-color: darkred; 
+}

@@ -13,7 +13,7 @@ define(['sprintf', 'moment'], function (sprintf, moment) {
         }
 
         this.writeLine = function (line) {
-            _out.innerText += sprintf.sprintf("\n\r [%s] %s", timestamp(), line);
+            _out.innerText += sprintf.sprintf("\r\n[%s] %s", timestamp(), line);
             _out.innerText = _out.innerText.trim();
         }
 
