@@ -47,6 +47,16 @@ define([], function () {
             player.isDealtCombatDamage(damage);
         };
 
+        this.gainLife = function (gameId, playerId, lifePoints) {
+            var game = _gamesManager.findGameById(gameId);
+            var player = game.findPlayerById(playerId);
+            player.gainsLife(lifePoints);
+        }
+
+        this.resetAll = function () {
+            _gamesManager.resetAll();
+        }
+
     }();
     return api;
 });

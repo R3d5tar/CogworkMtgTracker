@@ -66,7 +66,13 @@ define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, 
 
         this.getGames = function () {
             return _games();
-        }
+        };
+
+        this.resetAll  = function () {
+            while (_games().length > 0) {
+                _games.pop();
+            }
+        };
     }
 
 });

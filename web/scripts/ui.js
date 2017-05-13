@@ -5,8 +5,6 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
 
         /* context */
         this.activeGame = null;
-        //this.activeTeamId = ko.observable(null);
-        //this.activePlayerId = ko.observable(null);
 
         /* modals */
         // // use for trouble shooting, when necesary
@@ -60,6 +58,14 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             _.active(true);
         }
 
+        this.resetAllModal = new Modal(
+            function ok() {
+                this.active(false);
+                api.resetAll();
+                log.writeAction("reset all","all games were reset and removed, bye!");
+                self.activeGame = null;
+            });
+
         this.dealCombatDamageModal = new Modal(
             function ok() {
                 this.active(false);
@@ -95,12 +101,49 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             _.active(true);
         }
 
+        this.gainLifeModal = new Modal(
+            function ok() {
+                this.active(false);
+                var _ = self.gainLifeModal;
+                api.gainLife(_.gameSelected().id(), _.playerSelected().id(), _.lifeGain());
+            }
+        );
+        this.gainLifeModal.gameSelected = ko.observable();
+        this.gainLifeModal.games = ko.observableArray();
+        this.gainLifeModal.playerSelected = ko.observable();
+        this.gainLifeModal.players = ko.pureComputed(function () {
+            var selection = self.gainLifeModal.gameSelected() 
+            if (selection) {
+                return api.findGameById(selection.id()).players();
+            } else {
+                return [];
+            }
+        });
+        this.gainLifeModal.lifeGain = ko.observable(0);
+        this.gainLifeModal.lifeAfterDamage = ko.pureComputed(function () {
+            if (self.gainLifeModal.playerSelected()) {
+                return self.gainLifeModal.playerSelected().lifeTotal() + parseInt(self.gainLifeModal.lifeGain());
+            } else {
+                return null;
+            }
+        });
+        this.gainLifeModal.show = function () {
+            var _ = self.gainLifeModal;
+            _.games(api.getGames());
+            _.gameSelected(self.activeGame);
+            _.playerSelected(null);
+            _.lifeGain(0);
+            _.active(true);
+        }
+
         /* generic logic */
         this.modals = ko.observableArray([
             //this.firstModal, 
             this.startGameModal,
             this.joinPlayerModal,
-            this.dealCombatDamageModal
+            this.resetAllModal,
+            this.dealCombatDamageModal,
+            this.gainLifeModal
         ]);
 
         this.modalActive = ko.computed(function () {

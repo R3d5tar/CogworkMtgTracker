@@ -33,9 +33,9 @@
             </div>
             <div class="two-third colum">
                 <p>
-                    A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and lifetotals. Primary function
-                    is keeping track of life totals for multiple players during the game, but the goal is to be able to track
-                    various game related objects and counters.
+                    A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and life totals. Primary function
+                    is keeping track of life totals for multiple players during the game, but the ulitmate goal is to be able to track various game 
+                    related objects and counters.
                 </p>
             </div>
         </header>
@@ -44,50 +44,60 @@
 
             <div class="row actions">
                 <div class="one-third column">
-                    <h3><i class="ra ra-tower ra-fw" aria-hidden="true"></i> Setup</h2>
+                    <h3><i class="ra ra-tower ra-fw" aria-hidden="true"></i> Setup</h3>
 
-                        <button class="button-primary" data-bind="click: ui.startGameModal.show">
-                            <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
-                            start game
-                        </button>
-                        <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
-                            <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
-                            join player
-                        </button>
-                        <!-- TODO: disable when no games exist -->
-                        <!--
-                        <button class="button-primary">register commander</button>
-                        <button>remove player</button>
-                        <button>remove commander</button>
-                        <button>end game</button>
-                        <button>reset game</button>
-                        <button>switch game</button>-->
-                        <!--<button data-bind="click: ui.firstModal.show">first modal</button>-->
+                    <button class="button-primary" data-bind="click: ui.startGameModal.show">
+                        <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
+                        start game
+                    </button>
+                    <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
+                        <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
+                        join player
+                    </button>
+                    <button data-bind="click: ui.resetAllModal.show">
+                        <i class="ra ra-demolish ra-lg ra-fw" aria-hidden="true"></i>
+                        reset all
+                    </button>
+                    <!-- TODO: disable when no games exist -->
+                    <!--
+                    <button class="button-primary">register commander</button>
+                    <button>remove player</button>
+                    <button>remove commander</button>
+                    <button>end game</button>
+                    
+                    <button>switch game</button>-->
+                    <!--<button data-bind="click: ui.firstModal.show">first modal</button>-->
                 </div>
 
                 <div class="one-third column">
-                    <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h2>
-                        <button class="button-primary" data-bind="click: ui.dealCombatDamageModal.show">
-                            <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
-                            deal combat damage
-                        </button>
-                        <!--<button class="button-primary" data-bind="click: ui.gainLifeModal.show">gain life</button>
-                        <button data-bind="click: ui.adjustLifeModal.show">adjust life</button>
-                        <button data-bind="click: ui.setLifeModal.show">set life</button>-->
+                    <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h3>
+
+                    <button class="button-primary" data-bind="click: ui.dealCombatDamageModal.show">
+                        <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
+                        deal combat damage
+                    </button>
+                    <button class="button-primary" data-bind="click: ui.gainLifeModal.show">
+                        <i class="ra ra-heart-bottle ra-lg ra-fw" aria-hidden="true"></i>
+                        gain life
+                    </button>
+                    <!--
+                    <button data-bind="click: ui.adjustLifeModal.show">adjust life</button>
+                    <button data-bind="click: ui.setLifeModal.show">set life</button>-->
                 </div>
 
                 <div class="one-third column">
-                    <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h2>
-                        <button class="button-primary">
-                            <i class="fa fa-plus-square-o fa-lg fa-fw" aura-hidden="true"></i>
-                            increment counter
-                        </button>
-                        <button>
-                            <i class="fa fa-wrench fa-lg fa-fw" aura-hidden="true"></i>
-                            adjust counter</button>
-                        <button>
-                            <i class="fa fa-crosshairs fa-lg fa-fw" aura-hidden="true"></i>
-                            set counter</button>
+                    <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h3>
+                
+                    <button class="button-primary">
+                        <i class="fa fa-plus-square-o fa-lg fa-fw" aura-hidden="true"></i>
+                        increment counter
+                    </button>
+                    <button>
+                        <i class="fa fa-wrench fa-lg fa-fw" aura-hidden="true"></i>
+                        adjust counter</button>
+                    <button>
+                        <i class="fa fa-crosshairs fa-lg fa-fw" aura-hidden="true"></i>
+                        set counter</button>
                 </div>
             </div>
 
@@ -134,6 +144,18 @@
                                  with: null">
                 <b>Boeya</b>
             </basic-modal>-->
+
+            <basic-modal params="title: 'Reset all',
+                                 message: 'This will remove all games including all teams, all players, all life totals, all commanders and all tracked counters.',
+                                 buttonPositive: 'Reset',
+                                 buttonNegative: 'Abort',
+                                 with: resetAllModal">
+                <label>Are you sure?</label>
+                <label>
+                    <input name="confirm" type="checkbox" required />
+                        <span class="label-body" >Yes, I am!</span>
+                    </label>
+            </basic-modal>
 
             <basic-modal params="active: startGameModal.active, 
                                  okCallback: startGameModal.okCallback,
@@ -198,7 +220,39 @@
                 <input name="combatDamage" type="number" data-bind="value: damage" required min="0"/>
                 <i>
                     <p data-bind="if: playerSelected">
-                        <span data-bind="text: playerSelected().name"></span>'s life after damage <span data-bind="text: lifeAfterDamage"></span>
+                        <span data-bind="text: playerSelected().name"></span>'s life after damage: <span data-bind="text: lifeAfterDamage"></span>
+                    </p>
+                    <p data-bind="ifnot: playerSelected">&nbsp;</p>
+                </i>
+                
+            </basic-modal>
+
+            <basic-modal params="title: 'Gain life',
+                                 message: null,
+                                 with: gainLifeModal">
+                <label>Game:</label>
+                <div data-bind="foreach: games">
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span><sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Player who gains life:</label>
+                <div data-bind="foreach: players">
+                    <label>
+                        <input type="radio" name="radioPlayer" data-bind="checked: $parent.playerSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span><sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Life gain:</label>
+                <input name="lifegain" type="number" data-bind="value: lifeGain" required min="0"/>
+                <i>
+                    <p data-bind="if: playerSelected">
+                        <span data-bind="text: playerSelected().name"></span>'s life after gaining life: <span data-bind="text: lifeAfterDamage"></span>
                     </p>
                     <p data-bind="ifnot: playerSelected">&nbsp;</p>
                 </i>

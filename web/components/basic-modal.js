@@ -1,26 +1,28 @@
 define(['jquery', 'jquery.validate'], function ($) {
     $(document).ready(function () {
         $('form').validate();
-        // $("[name='positive']").rules( "add", {
-        //     min: 0
-        // });
     });
 
     return function BasicModal(params) {
-        this.active = params.active; //TODO: build in fallback to with/context...
         this.title = params.title;
         this.message = params.message;
         this.context = params.with;
 
-        //TODO: build in fallback to with/context...
-        this.okCallback = function () { this.active(false) };
-        if (params.okCallback)
-            this.okCallback = params.okCallback;
+        this.active = params.active;
+        if (!this.active) 
+            this.active = this.context.active;
 
-        //TODO: build in fallback to with/context...
-        this.cancelCallback = function () { this.active(false) };
-        if (params.cancelCallback)
-            this.cancelCallback = params.cancelCallback;
+        this.okCallback = params.okCallback;
+        if (!this.okCallback)
+            this.okCallback = this.context.okCallback;
+        if (!this.okCallback)
+            this.okCallback = function () { this.active(false) };
+        
+        this.cancelCallback = params.cancelCallback;
+        if (!this.cancelCallback)
+            this.cancelCallback = this.context.cancelCallback;
+        if (!this.cancelCallback)
+            this.cancelCallback = function () { this.active(false) };
 
         this.buttonNegative = "Cancel";
         if (params.buttonNegative)
