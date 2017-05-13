@@ -30,6 +30,7 @@ label.error {
     /* compensate margins of Skeleton */
     margin-top: -1.5rem; 
     height: 1.0rem;
+    position: fixed;
 }
 
 input.error {

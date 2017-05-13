@@ -36,6 +36,16 @@ define([], function () {
         this.getGames = function () {
             return _gamesManager.getGames();
         };
+        
+        this.findGameById = function (id) {
+            return _gamesManager.findGameById(id);
+        };
+        
+        this.dealCombatDamage = function (gameId, playerId, damage) {
+            var game = _gamesManager.findGameById(gameId);
+            var player = game.findPlayerById(playerId);
+            player.isDealtCombatDamage(damage);
+        };
 
     }();
     return api;

@@ -46,6 +46,11 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             return player;
         }.bind(this);
 
+        this.findPlayerById = function (id) {
+            return this.players()
+                .find(function (player) { return player.id() === id; });
+        }
+
         this.findPlayerByName = function (name) {
             return this.players()
                 .find(function (player) { return player.name() === name; });

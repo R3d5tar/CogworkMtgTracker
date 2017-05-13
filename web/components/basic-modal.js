@@ -1,6 +1,9 @@
 define(['jquery', 'jquery.validate'], function ($) {
     $(document).ready(function () {
         $('form').validate();
+        // $("[name='positive']").rules( "add", {
+        //     min: 0
+        // });
     });
 
     return function BasicModal(params) {

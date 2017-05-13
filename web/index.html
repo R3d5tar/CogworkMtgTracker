@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css">
     <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/rpg-awesome/css/rpg-awesome.min.css">
     <link rel="stylesheet" href="styles/modal.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- Favicon -->
@@ -43,18 +44,19 @@
 
             <div class="row actions">
                 <div class="one-third column">
-                    <h3>Setup</h2>
+                    <h3><i class="ra ra-tower ra-fw" aria-hidden="true"></i> Setup</h2>
 
                         <button class="button-primary" data-bind="click: ui.startGameModal.show">
-                            <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
                             start game
                         </button>
                         <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
-                            <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
                             join player
                         </button>
                         <!-- TODO: disable when no games exist -->
-                        <!--<button class="button-primary">register commander</button>
+                        <!--
+                        <button class="button-primary">register commander</button>
                         <button>remove player</button>
                         <button>remove commander</button>
                         <button>end game</button>
@@ -64,18 +66,28 @@
                 </div>
 
                 <div class="one-third column">
-                    <h3>Life</h2>
-                        <!--<button class="button-primary" data-bind="click: ui.dealDamageModal.show">deal damage</button>
-                        <button class="button-primary" data-bind="click: ui.gainLifeModal.show">gain life</button>
+                    <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h2>
+                        <button class="button-primary" data-bind="click: ui.dealCombatDamageModal.show">
+                            <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
+                            deal combat damage
+                        </button>
+                        <!--<button class="button-primary" data-bind="click: ui.gainLifeModal.show">gain life</button>
                         <button data-bind="click: ui.adjustLifeModal.show">adjust life</button>
                         <button data-bind="click: ui.setLifeModal.show">set life</button>-->
                 </div>
 
                 <div class="one-third column">
-                    <h3>Counters</h2>
-                        <button class="button-primary">increment counter</button>
-                        <button>adjust counter</button>
-                        <button>set counter</button>
+                    <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h2>
+                        <button class="button-primary">
+                            <i class="fa fa-plus-square-o fa-lg fa-fw" aura-hidden="true"></i>
+                            increment counter
+                        </button>
+                        <button>
+                            <i class="fa fa-wrench fa-lg fa-fw" aura-hidden="true"></i>
+                            adjust counter</button>
+                        <button>
+                            <i class="fa fa-crosshairs fa-lg fa-fw" aura-hidden="true"></i>
+                            set counter</button>
                 </div>
             </div>
 
@@ -130,9 +142,9 @@
                                  message: null,
                                  with: startGameModal">
                 <label>Game name:</label>
-                <input name="name" type="text" data-bind="value: gameName" />
+                <input name="name" type="text" data-bind="value: gameName" required />
                 <label>Players (or teams) starting life total:</label>
-                <input name="lifetotal" type="number" data-bind="value: startingLifeTotal" />
+                <input name="lifetotal" type="number" data-bind="value: startingLifeTotal" required min="0" />
                 <!-- TODO: create a reusable / touch friendly number input box, if needed after testing... -->
             </basic-modal>
 
@@ -143,17 +155,54 @@
                                  message: null,
                                  with: joinPlayerModal">
                 <label>Player name:</label>
-                <input name="name" type="text" data-bind="value: playerName" required="required" />
+                <input name="name" type="text" data-bind="value: playerName" required />
                 <label>Will join game:</label>
                 <div data-bind="foreach: games">
                     <label>
-                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" />
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
                         <span class="label-body" >
                             <span data-bind="text: name"></span>
                             <sup data-bind="text: id"></sup>
                         </span>
                     </label>
                 </div>
+            </basic-modal>
+
+            <basic-modal params="active: dealCombatDamageModal.active, 
+                                 okCallback: dealCombatDamageModal.okCallback,
+                                 cancelCallback: dealCombatDamageModal.cancelCallback,
+                                 title: 'Deal combat damage',
+                                 message: null,
+                                 with: dealCombatDamageModal">
+                <label>Game:</label>
+                <div data-bind="foreach: games">
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Player to receive damage:</label>
+                <div data-bind="foreach: players">
+                    <label>
+                        <input type="radio" name="radioPlayer" data-bind="checked: $parent.playerSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Combat damage:</label>
+                <input name="combatDamage" type="number" data-bind="value: damage" required min="0"/>
+                <i>
+                    <p data-bind="if: playerSelected">
+                        <span data-bind="text: playerSelected().name"></span>'s life after damage <span data-bind="text: lifeAfterDamage"></span>
+                    </p>
+                    <p data-bind="ifnot: playerSelected">&nbsp;</p>
+                </i>
+                
             </basic-modal>
         </div>
     </div>

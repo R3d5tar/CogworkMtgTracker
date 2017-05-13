@@ -60,11 +60,47 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             _.active(true);
         }
 
+        this.dealCombatDamageModal = new Modal(
+            function ok() {
+                this.active(false);
+                var _ = self.dealCombatDamageModal;
+                api.dealCombatDamage(_.gameSelected().id(), _.playerSelected().id(), _.damage());
+            }
+        );
+        this.dealCombatDamageModal.gameSelected = ko.observable();
+        this.dealCombatDamageModal.games = ko.observableArray();
+        this.dealCombatDamageModal.playerSelected = ko.observable();
+        this.dealCombatDamageModal.players = ko.pureComputed(function () {
+            var selection = self.dealCombatDamageModal.gameSelected() 
+            if (selection) {
+                return api.findGameById(selection.id()).players();
+            } else {
+                return [];
+            }
+        });
+        this.dealCombatDamageModal.damage = ko.observable(0);
+        this.dealCombatDamageModal.lifeAfterDamage = ko.pureComputed(function () {
+            if (self.dealCombatDamageModal.playerSelected()) {
+                return self.dealCombatDamageModal.playerSelected().lifeTotal() - self.dealCombatDamageModal.damage();
+            } else {
+                return null;
+            }
+        });
+        this.dealCombatDamageModal.show = function () {
+            var _ = self.dealCombatDamageModal;
+            _.games(api.getGames());
+            _.gameSelected(self.activeGame);
+            _.playerSelected(null);
+            _.damage(0);
+            _.active(true);
+        }
+
         /* generic logic */
         this.modals = ko.observableArray([
             //this.firstModal, 
             this.startGameModal,
-            this.joinPlayerModal
+            this.joinPlayerModal,
+            this.dealCombatDamageModal
         ]);
 
         this.modalActive = ko.computed(function () {

@@ -24,6 +24,7 @@
     "requirejs": "~2.3.3",
     "text": "requirejs-text#~2.0.15",
     "font-awesome": "Font-Awesome#~4.7.0",
-    "jquery-validation": "jquery.validation#~1.16.0"
+    "jquery-validation": "jquery.validation#~1.16.0",
+    "rpg-awesome": "~1.0.0"
   }
 }
