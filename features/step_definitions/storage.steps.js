@@ -48,5 +48,65 @@ defineSupportCode(function (context) {
       callback(null);
     });
 
+    Given('there is an object to import', function (callback) {
+      this.cache.import = {};
+      callback(null);
+    });
+
+    Given('that import object has a property "{propertyName}" with value "{value}"', function (propertyName, value, callback) {
+      this.cache.import[propertyName] = value;
+
+      callback(null);
+    });
+
+    When('that import object is imported as a player', function (callback) {
+      this.cache.player =
+        Player.fromJsonObject(this.cache.import);
+
+      callback(null);
+    });
+
+    Then('that player is named "{playerName}', function (playerName, callback) {
+      assert(this.cache.player.name(), playerName);
+
+      callback(null);
+    });
+
+    Then('that player has id {playerId}', function (playerId, callback) {
+      assert(this.cache.player.id(), playerId);
+      callback(null);
+    });
+
+    Given('that import object has a property "{propertyName}" containing an array', function (propertyName, callback) {
+      this.cache.import[propertyName] = [];
+      callback(null);
+    });
+
+    When('that import object is imported as a team', function (callback) {
+      this.cache.team =
+        Team.fromJsonObject(this.cache.import);
+
+      callback(null);
+    });
+
+    Then('there is a team object', function (callback) {
+      assert.ok(this.cache.team);
+      callback(null);
+    });
+
+    Then('that team has id "{teamId}"', function (teamId, callback) {
+      assert(this.cache.team.id(), teamId);
+      callback(null);
+    });
+
+    Then('that team has no players', function (callback) {
+      assert.equal(this.cache.team.players().length, 0);
+      callback(null);
+    });
+
+    Then('that team is at {lifeTotal} life', function (lifeTotal, callback) {
+         assert(this.cache.team.lifeTotal, parseInt(lifeTotal));
+         callback(null);
+       });
   });
 });

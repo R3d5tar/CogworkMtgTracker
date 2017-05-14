@@ -1,13 +1,18 @@
 define(['ko', 'scripts/tools/utils'], function (ko, utils) {
     
-    return function Player(parent, team, name) {
+    var Player = function Player(parent, team, name, id) {
         var _id = "player-" + utils.guid();
+        if (id) {
+            _id = id;
+        }
         this.types = ["player"];
         this.parent = parent; //game
         this.team = ko.observable(team);
         this.name = ko.observable(name);
-        this.team().addPlayer(this);
-
+        if (team) {
+            this.team().addPlayer(this);
+        }
+        
         this.id = ko.computed(function () {
             return _id;
         });
@@ -59,4 +64,9 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
         }
     }
 
+    Player.fromJsonObject = function (object) {
+        return new Player(null, null, object.name, object.id);
+    }
+
+    return Player;
 });

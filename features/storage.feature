@@ -21,6 +21,28 @@ Feature: Storage
     | 30       |
     | 40       |
 
+
+    Scenario: Import the state of a player
+        Given there is an object to import
+        And that import object has a property "id" with value "player-thisshouldbeaguid"
+        And that import object has a property "name" with value "abc"
+        When that import object is imported as a player
+        Then there is a player object
+        And that player is named "abc"
+        And that player has id "player-thisshouldbeaguid"
+    
+    Scenario: Import the state of a team
+        Given there is an object to import
+        And that import object has a property "id" with value "team-thisshouldbeaguid"
+        And that import object has a property "lifeTotal" with value "10"
+        And that import object has a property "players" containing an array
+        When that import object is imported as a team
+        Then there is a team object
+        And that team is at 10 life
+        And that team has id "team-thisshouldbeaguid"
+        And that team has no players
+        
+
 # TODO:
 #  - export combination of players and teams
 #  - export game

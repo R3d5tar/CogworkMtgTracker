@@ -1,11 +1,14 @@
 define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
-    
-    return function Team(parent, lifeTotal) {
+
+    var Team = function (parent, lifeTotal, id) {
         var _id = "team-" + utils.guid();
+        if (id) {
+            _id = id;
+        }
         this.types = ["team"];
         this.parent = parent; //game
         var _players = ko.observableArray([]);
-        
+
         this.lifeTotal = ko.observable(lifeTotal);
         this.players = _players;
 
@@ -82,5 +85,13 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             return result;
         }
     }
+
+    Team.fromJsonObject = function (object) {
+        var result = new Team(null, parseInt(object.lifeTotal), object.id);
+        //TODO: parse players
+        return result;
+    }
+
+    return Team;
 
 });
