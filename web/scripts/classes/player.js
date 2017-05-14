@@ -1,5 +1,5 @@
 define(['ko', 'scripts/tools/utils'], function (ko, utils) {
-    
+
     var Player = function Player(parent, team, name, id) {
         var _id = "player-" + utils.guid();
         if (id) {
@@ -9,10 +9,15 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
         this.parent = parent; //game
         this.team = ko.observable(team);
         this.name = ko.observable(name);
-        if (team) {
-            this.team().addPlayer(this);
-        }
-        
+
+        this.updateTeam = function (team) {
+            if (this.team() != team) {
+                if (this.team())
+                    this.team().tryRemovePlayer(this);
+                this.team(team);
+            }
+        }.bind(this);
+
         this.id = ko.computed(function () {
             return _id;
         });
@@ -61,6 +66,11 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
                 "id": _id,
                 "name": this.name()
             };
+        }
+
+        //some final logic...
+        if (team) {
+            this.team().addPlayer(this);
         }
     }
 

@@ -99,14 +99,65 @@ defineSupportCode(function (context) {
       callback(null);
     });
 
-    Then('that team has no players', function (callback) {
-      assert.equal(this.cache.team.players().length, 0);
+    Then('that team has {count} players', function (count, callback) {
+      assert.equal(this.cache.team.players().length, count);
       callback(null);
     });
 
     Then('that team is at {lifeTotal} life', function (lifeTotal, callback) {
-         assert(this.cache.team.lifeTotal, parseInt(lifeTotal));
-         callback(null);
-       });
+      assert(this.cache.team.lifeTotal, parseInt(lifeTotal));
+      callback(null);
+    });
+
+    Given('there is a team at {lifeTotal} life', function (lifeTotal, callback) {
+      this.cache.team = new Team(parseInt(lifeTotal));
+      callback(null);
+    });
+
+    Given('(player) "{playerName}" joins that team', function (playerName, callback) {
+      this.cache.player = new Player(null, this.cache.team, playerName);
+      callback(null);
+    });
+
+    Then('the "{collectionPropertyName}" property of the exported object contains'
+      + ' an object with a property "{propertyName}" and a value "{value}"', function (collectionPropertyName, propertyName, value, callback) {
+        var jsonObject = JSON.parse(this.cache.export);
+        var collection = jsonObject[collectionPropertyName];
+        assert.ok(collection);
+        var found = collection.some(function (item) {
+          return item[propertyName] == value;
+        });
+        assert.ok(found);
+
+        callback(null);
+      });
+
+    Given('there is another object to import', function (callback) {
+      this.stack.push(this.cache.import);
+      this.cache.import = {};
+
+      callback(null);
+    });
+
+    Given('that import object is added to the "{collectionPropertyName}" collection of the previous object', function (collectionPropertyName, callback) {
+      var previous = this.stack.pop();
+      previous[collectionPropertyName].push(this.cache.import);
+      this.cache.import = previous;
+
+      callback(null);
+    });
+
+    Then('that team contains a player named "{playerName}"', function (playerName, callback) {
+      var found =
+        this.cache.team.players().some(
+          function (player) {
+            return player.name() == playerName;
+          }
+        );
+      assert.ok(found);
+
+      callback(null);
+    });
+
   });
 });

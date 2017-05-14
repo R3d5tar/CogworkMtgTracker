@@ -31,7 +31,15 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
 
         this.addPlayer = function (player) {
             _players.push(player);
+            player.updateTeam(this);
             return player;
+        }.bind(this);
+
+        this.tryRemovePlayer = function (player) {
+            var index = _players.indexOf(player);
+            if (index >= 0) {
+                _players.splice(index, 1);
+            }
         }.bind(this);
 
         this.setLifeTotal = function (value) {
@@ -80,7 +88,7 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             };
             this.players().forEach(
                 function (player) {
-                    result.players.pop(player.toJsonObject());
+                    result.players.push(player.toJsonObject());
                 });
             return result;
         }
@@ -88,7 +96,11 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
 
     Team.fromJsonObject = function (object) {
         var result = new Team(null, parseInt(object.lifeTotal), object.id);
-        //TODO: parse players
+
+        object.players.forEach(function (playerObject) {
+            result.addPlayer(Player.fromJsonObject(playerObject));
+        });
+
         return result;
     }
 

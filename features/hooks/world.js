@@ -28,6 +28,7 @@ defineSupportCode(function (context) {
             
             this.gamesManager = new GamesManager();
             this.cache = {};
+            this.stack = [];
 
         };
 
