@@ -1,6 +1,6 @@
 define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf, moment, Team, Player) {
 
-    return function Game(parent) {
+    var Game = function (parent) {
         var _id = sprintf.sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));
         this.parent = parent; //gameManager
         var _childern = ko.observableArray([]);
@@ -31,15 +31,19 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             return getChildernOfType("counters");
         }
 
-        this.joinTeam = function () {
-            var team = new Team(this, this.startingLifeTotal());
+        this.addTeam = function (team) {
             _childern.push(team);
             return team;
+        };
+
+        this.joinNewTeam = function () {
+            var team = new Team(this, this.startingLifeTotal());
+            return this.addTeam(team);
         }.bind(this);
 
         this.joinPlayer = function (name, team) {
             if (!team) {
-                team = this.joinTeam();
+                team = this.joinNewTeam();
             }
             var player = new Player(this, team, name);
             _childern.push(player);
@@ -69,6 +73,30 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
                 }
             );
         };
+
+        this.toJsonObject = function () {
+            var result = {
+                startingLifeTotal: this.startingLifeTotal(),
+                teams: []
+            };
+            this.teams().forEach(function (game) {
+                result.teams.push(game.toJsonObject());
+            });
+            return result;
+        }
     }
+
+    Game.fromJsonObject = function (object, parent) {
+        var result = new Game(parent || null);
+        result.startingLifeTotal(object.startingLifeTotal);
+
+        object.teams.forEach(function (teamObject) {
+            result.addTeam(Team.fromJsonObject(teamObject, result));
+        });
+
+        return result;
+    }
+
+    return Game;
 
 });

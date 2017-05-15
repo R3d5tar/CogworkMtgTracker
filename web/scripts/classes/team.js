@@ -30,8 +30,11 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
         }, this);
 
         this.addPlayer = function (player) {
-            _players.push(player);
-            player.updateTeam(this);
+            //prevent double adding the same player (because of some recuring logic between Team and Player)
+            if (_players.indexOf(player) == -1) {
+                _players.push(player);
+                player.updateTeam(this);
+            }
             return player;
         }.bind(this);
 
@@ -94,11 +97,11 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
         }
     }
 
-    Team.fromJsonObject = function (object) {
-        var result = new Team(null, parseInt(object.lifeTotal), object.id);
+    Team.fromJsonObject = function (object, parent) {
+        var result = new Team(parent || null, parseInt(object.lifeTotal), object.id);
 
         object.players.forEach(function (playerObject) {
-            result.addPlayer(Player.fromJsonObject(playerObject));
+            result.addPlayer(Player.fromJsonObject(playerObject, parent, result));
         });
 
         return result;

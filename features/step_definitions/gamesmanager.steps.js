@@ -17,13 +17,13 @@ defineSupportCode(function (context) {
     });
 
     When('a game starts', function (callback) {
-        this.gamesManager.startGame();
+        this.cache.game = this.gamesManager.startGame();
 
         callback(null);
     });
 
     When('a game {name} starts', function (name, callback) {
-        this.gamesManager.startGame(name);
+        this.cache.game = this.gamesManager.startGame(name);
 
         callback(null);
     });
@@ -44,36 +44,36 @@ defineSupportCode(function (context) {
     Then('there is a game {name} registered', function (name, callback) {
         var game = this.gamesManager.findGameByName(name);
         assert.notEqual(game, null);
-
+        this.cache.game  = game;
         callback(null);
     });
 
     Then('there is no game {name} registered', function (name, callback) {
         var game = this.gamesManager.findGameByName(name);
         assert.equal(game, null);
-
         callback(null);
     });
 
     When('the primary game is retrieved', function (callback) {
-        this.primaryGameResult = this.gamesManager.getPrimaryGame();
+        this.cache.primaryGameResult = this.gamesManager.getPrimaryGame();
+        this.cache.game  = this.cache.primaryGameResult;
         callback(null);
     });
 
     Then('a game was returned as primary game', function (callback) {
-        assert.notEqual(this.primaryGameResult, null);
+        assert.notEqual(this.cache.primaryGameResult, null);
 
         callback(null);
     });
 
     Then('game {name} was returned as primary game', function (name, callback) {
-        assert.equal(this.primaryGameResult.name(), name);
+        assert.equal(this.cache.primaryGameResult.name(), name);
 
         callback(null);
     });
 
     When('a game {name} starts with a starting life total of {life}', function (name, life, callback) {
-        this.gamesManager.startGame(name, life);
+        this.cache.game = this.gamesManager.startGame(name, life);
 
         callback(null);
     });
@@ -82,7 +82,7 @@ defineSupportCode(function (context) {
         var game = this.gamesManager.findGameByName(name);
         assert.notEqual(game, null);
         assert.equal(game.startingLifeTotal(), life);
-
+        this.cache.game = game;
         callback(null);
     });
 
@@ -90,16 +90,18 @@ defineSupportCode(function (context) {
         var game = this.gamesManager.findGameByName(gameName);
         assert.notEqual(game, null);
 
-        game.joinPlayer(playerName);
-
+        this.cache.player = game.joinPlayer(playerName);
+        this.cache.game = game;
+        
         callback(null);
     });
 
-    Then('game {gameName} has {count} player', function (gameName, count, callback) {
+    Then('game {gameName} has {count} player(s)', function (gameName, count, callback) {
         var game = this.gamesManager.findGameByName(gameName);
         assert.notEqual(game, null);
         assert.equal(game.players().length, count);
 
+        this.cache.game = game;
         callback(null);
     });
 
@@ -109,7 +111,8 @@ defineSupportCode(function (context) {
         assert.notEqual(game, null);
         var player = game.findPlayerByName(playerName);
         assert.notEqual(player, null);
-
+        this.cache.game = game;
+        this.cache.player = player;
         callback(null);
     });
 
@@ -119,7 +122,7 @@ defineSupportCode(function (context) {
         var player = game.findPlayerByName(playerName);
         assert.notEqual(player, null);
         assert.equal(player.lifeTotal(), life);
-
+        this.cache.player = player;
         callback(null);
     });
 });

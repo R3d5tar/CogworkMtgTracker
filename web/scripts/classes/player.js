@@ -69,13 +69,13 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
         }
 
         //some final logic...
-        if (team) {
+        if (this.team()) {
             this.team().addPlayer(this);
         }
     }
 
-    Player.fromJsonObject = function (object) {
-        return new Player(null, null, object.name, object.id);
+    Player.fromJsonObject = function (object, parent, team) {
+        return new Player(parent || null, team || null, object.name, object.id);
     }
 
     return Player;
