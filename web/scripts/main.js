@@ -16,8 +16,8 @@ requirejs.config({
 
 
 requirejs(
-    ["scripts/classes/gamesmanager", "ko", "scripts/log", "scripts/ui", "scripts/api"], 
-    function(GamesManager, ko, log, ui, api) {
+    ["scripts/classes/gamesmanager", "ko", "scripts/log", "scripts/ui", "scripts/api", "scripts/storage"], 
+    function(GamesManager, ko, log, ui, api, storage) {
 
         log.init(document.getElementById("log"));
 
@@ -32,8 +32,18 @@ requirejs(
             api: api,
             log: log
         }
-        api.init(viewModel.manager);
 
+        if (storage.foundCompatibleItem()) 
+        {
+            viewModel.manager = storage.load();
+        }
+        storage.autoSave(viewModel.manager);
+       
+        window.onblur = function() {
+            storage.saveNow();
+        };
+
+        api.init(viewModel.manager);
         ko.applyBindings(viewModel);
     }
 );

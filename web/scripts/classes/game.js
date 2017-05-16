@@ -1,7 +1,10 @@
 define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf, moment, Team, Player) {
 
-    var Game = function (parent) {
+    var Game = function (parent, id) {
         var _id = sprintf.sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));
+        if (id) {
+            _id = id;
+        }
         this.parent = parent; //gameManager
         var _childern = ko.observableArray([]);
         this.name = ko.observable(_id.toString());
@@ -76,8 +79,10 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
 
         this.toJsonObject = function () {
             var result = {
-                startingLifeTotal: this.startingLifeTotal(),
-                teams: []
+                "id": _id,
+                "name": this.name(),
+                "startingLifeTotal": this.startingLifeTotal(),
+                "teams": []
             };
             this.teams().forEach(function (game) {
                 result.teams.push(game.toJsonObject());
@@ -87,9 +92,9 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
     }
 
     Game.fromJsonObject = function (object, parent) {
-        var result = new Game(parent || null);
+        var result = new Game(parent || null, object.id);
+        result.name(object.name);
         result.startingLifeTotal(object.startingLifeTotal);
-
         object.teams.forEach(function (teamObject) {
             result.addTeam(Team.fromJsonObject(teamObject, result));
         });

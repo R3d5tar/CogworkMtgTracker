@@ -47,8 +47,17 @@ To be able to do this the complete state should be exportable and importable.
         And the "teams" property of the exported object contains an object with a property "lifeTotal" and a value 20
         And the "teams" property of the exported object contains an object with a property "lifeTotal" and a value 20
 
+    Scenario: Export the gamesmanager
+        Given a game "Friday Night Battle" starts
+        And a game "Saterday Morning Revenge" starts
+        And the default starting life total for a game is 30 life
+        When the gamesmanager is exported
+        Then the exported object has a property "games" containing 2 items
+        And the "games" property of the exported object contains an object with a property "name" and a value "Friday Night Battle"
+        And the "games" property of the exported object contains an object with a property "name" and a value "Saterday Morning Revenge"
+        And the exported object has a property "defaultStartingLifeTotal" with value 30
 
-        #IMPORT:
+#IMPORT:
     Scenario: Import the state of a player
         Given there is an object to import
         And that import object has a property "id" with value "player-thisshouldbeaguid"
@@ -104,12 +113,21 @@ To be able to do this the complete state should be exportable and importable.
         And that game has 1 teams
         And that game contains a team with id "team-abc"
 
+     Scenario: Import the state of a gamesmanager
+        Given there is an object to import
+        And that import object has a property "defaultStartingLifeTotal" with value "13"
+        And that import object has a property "games" containing an array
+        And there is another object to import
+        And that import object has a property "id" with value "game-that-will-not-be-played"
+        And that import object has a property "name" with value "Yesterday Night Magic"
+        And that import object has a property "startingLifeTotal" with value "40"
+        And that import object has a property "teams" containing an array
+        And that import object is added to the "games" collection of the previous object
+        When that import object is imported as a games manager
+        Then the default starting life total is 13
+        And there are 1 games registered 
+        And there is a game "Yesterday Night Magic" registered
+
         # TODO:
-        #  - export game manager
-        #  - import game manager
-
-        #  - export combination of game manager and games
-        #  - import combination of game manager and games
-
         # - the magic around game (parenting) and players/teams... of maybe some clean-up...
 
