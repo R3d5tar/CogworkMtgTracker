@@ -31,11 +31,11 @@
             <div class="one-third column">
                 <h1>Cog<wbr>work MTG Tracker</h1>
             </div>
-            <div class="two-third colum">
+            <div class="two-thirds column">
                 <p>
                     A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and life totals. Primary function
-                    is keeping track of life totals for multiple players during the game, but the ulitmate goal is to be able to track various game 
-                    related objects and counters.
+                    is keeping track of life totals for multiple players during the game, but the ulitmate goal is to be
+                    able to track various game related objects and counters.
                 </p>
             </div>
         </header>
@@ -87,7 +87,7 @@
 
                 <div class="one-third column">
                     <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h3>
-                
+
                     <button class="button-primary">
                         <i class="fa fa-plus-square-o fa-lg fa-fw" aura-hidden="true"></i>
                         increment counter
@@ -110,20 +110,45 @@
             </div>
 
             <div class="row display">
-                <ul data-bind="foreach: manager.games">
-                    <li>
-                        Game '<span data-bind="text: name"></span>' with starting life <span data-bind="text: startingLifeTotal"></span>
-                        <sup><span data-bind="text: id"></span></sup>
-
-                        <ul data-bind="foreach: teams">
-                            <li><span data-bind="text: name"></span> currently at <span data-bind="text: lifeTotal"></span> life
-                                <ul data-bind="foreach: players">
-                                    <li data-bind="text: name"></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="row" data-bind="foreach: manager.games">
+                    <div class="game">
+                        <div class="row gameheader">
+                            <div class="two-thirds column">
+                                <h2 class="gamename">
+                                    <i class="fa fa-minus-square-o fa-fw"></i>
+                                    <span data-bind="text: name"></span>
+                                </h2>
+                            </div>
+                            <div class="one-third column">
+                                <p>Starting life: <span data-bind="text: startingLifeTotal"></span></p>
+                                <p class="id" data-bind="text: id"></p>
+                            </div>
+                        </div>
+                        <div class="row" data-bind="foreach: teams">
+                            <!-- ko if: ( ($index() + 1) % 4 == 0) -->
+                            <div class="u-cf"></div>
+                            <!-- /ko  -->
+                            <div class="team one-third column">
+                                <div class="row">
+                                    <h4 class="life">
+                                        <i class="ra ra-glass-heart ra-fw" aria-hidden="true"></i>
+                                        <span data-bind="text: lifeTotal"></span>
+                                        <h4>
+                                </div>
+                                <div class="row">
+                                    <h3 class="name" data-bind="text: name"></h3>
+                                    <p class="id" data-bind="text: id"></p>
+                                </div>
+                                <div class="row" data-bind="foreach: players">
+                                    <div class="player one-half column">
+                                        <p class="name" data-bind="text: name"></p>
+                                        <p class="id" data-bind="text: id"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -217,14 +242,14 @@
                     </label>
                 </div>
                 <label>Combat damage:</label>
-                <input name="combatDamage" type="number" data-bind="value: damage" required min="0"/>
+                <input name="combatDamage" type="number" data-bind="value: damage" required min="0" />
                 <i>
                     <p data-bind="if: playerSelected">
                         <span data-bind="text: playerSelected().name"></span>'s life after damage: <span data-bind="text: lifeAfterDamage"></span>
                     </p>
                     <p data-bind="ifnot: playerSelected">&nbsp;</p>
                 </i>
-                
+
             </basic-modal>
 
             <basic-modal params="title: 'Gain life',
@@ -249,14 +274,14 @@
                     </label>
                 </div>
                 <label>Life gain:</label>
-                <input name="lifegain" type="number" data-bind="value: lifeGain" required min="0"/>
+                <input name="lifegain" type="number" data-bind="value: lifeGain" required min="0" />
                 <i>
                     <p data-bind="if: playerSelected">
                         <span data-bind="text: playerSelected().name"></span>'s life after gaining life: <span data-bind="text: lifeAfterDamage"></span>
                     </p>
                     <p data-bind="ifnot: playerSelected">&nbsp;</p>
                 </i>
-                
+
             </basic-modal>
         </div>
     </div>

@@ -36,3 +36,59 @@ label.error {
 input.error {
     border-color: darkred; 
 }
+
+
+.display p {
+    margin-bottom: 0rem;
+}
+
+.display .game {
+    background-color: gainsboro;
+    margin-bottom: 1rem;
+    padding-top: 0rem;
+    padding-bottom: 1rem;
+}
+
+.display .gameheader {
+    /*background-color: lightblue;*/
+
+}
+
+.display .gamename {
+    background-color: sienna;
+}
+
+.display .team {
+    background-color: whitesmoke;
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+}
+
+.display .player {
+    /*background-color: yellow;*/
+    border: slategrey 0.01rem dotted;
+}
+
+.display .id {
+    /*background-color: antiquewhite;*/
+    font-size: xx-small;
+    line-height: normal;
+}
+
+.display .life {
+    background-color: crimson;
+    text-align: center;
+}
+
+.display .name {
+    white-space: nowrap;
+    /*background-color: aliceblue;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.u-cf + .column, 
+.u-cf + .columns {
+    margin-left: 0;
+}
