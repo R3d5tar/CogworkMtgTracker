@@ -134,7 +134,7 @@
                                     <h4 class="life">
                                         <i class="ra ra-glass-heart ra-fw" aria-hidden="true"></i>
                                         <span data-bind="text: lifeTotal"></span>
-                                        <h4>
+                                    <h4>
                                 </div>
                                 <div class="row">
                                     <h3 class="name" data-bind="text: name"></h3>
@@ -148,6 +148,9 @@
                                         <p class="id" data-bind="text: id"></p>
                                     </div>    
                                 </div>
+                                <button data-bind="click: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id())">
+                                    <i class="fa fa-window-close fa-fw" aria-valuetext="remove"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -216,6 +219,12 @@
                         </span>
                     </label>
                 </div>
+                <!-- TODO: new team or existing team -->
+                <label>Will join team:</label>
+
+                <select data-bind="options: teams,
+                       optionsText: 'name',
+                       value: teamSelected"></select>
             </basic-modal>
 
             <basic-modal params="active: dealCombatDamageModal.active, 

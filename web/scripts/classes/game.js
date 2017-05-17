@@ -37,7 +37,12 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
         this.addTeam = function (team) {
             _childern.push(team);
             return team;
-        };
+        }.bind(this);
+
+        this.removeTeam = function (team) {
+            var index = _childern.indexOf(team);
+            _childern.splice(index, 1);
+        }.bind(this);
 
         this.joinNewTeam = function () {
             var team = new Team(this, this.startingLifeTotal());
@@ -63,6 +68,16 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
                 .find(function (player) { return player.name() === name; });
         }
 
+        this.findTeamById = function (id) {
+            return this.teams()
+                .find(function (team) { return team.id() === id; });
+        }
+
+        this.findTeamByName = function (name) {
+            return this.teams()
+                .find(function (team) { return team.name() === name; });
+        }
+
         this.exchangeLifeTotalsBetween = function (playerA, playerB) {
             var lifeTotalCache = playerA.lifeTotal();
             playerA.setLifeTotal(playerB.lifeTotal());
@@ -84,8 +99,8 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
                 "startingLifeTotal": this.startingLifeTotal(),
                 "teams": []
             };
-            this.teams().forEach(function (game) {
-                result.teams.push(game.toJsonObject());
+            this.teams().forEach(function (team) {
+                result.teams.push(team.toJsonObject());
             });
             return result;
         }

@@ -22,10 +22,18 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             }
             else {
                 var name = "";
-                this.players().forEach(function (player) {
-                    name += player.name() + " ";
+                var i = 1;
+                var players = this.players();
+                players.forEach(function (player) {
+                    if (i == players.length)
+                        name += player.name(); //last
+                    else if ((i + 1) == players.length) //second to last
+                        name += player.name() + " & ";
+                    else
+                        name += player.name() + ", "; // other
+                    i++;
                 });
-                return name.trim();
+                return name;
             }
         }, this);
 

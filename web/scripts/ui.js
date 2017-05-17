@@ -39,22 +39,43 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             function ok () {
                 this.active(false);
                 var _ = self.joinPlayerModal;
-                var player = api.joinPlayer(_.playerName(), _.gameSelected().id());
-                log.writeAction(
-                    sprintf.sprintf("join %s to %s", player.name(), _.gameSelected().name()),
-                    sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]", 
-                        player.name(), _.gameSelected().name(), player.lifeTotal(), _.gameSelected().id(), player.id())
-                );
+                var player = api.joinPlayer(_.playerName(), _.gameSelected().id(), _.teamSelected().id());
+                if (_.teamSelected().id() != null) {
+                    log.writeAction(
+                        sprintf.sprintf("join %s to %s", player.name(), _.gameSelected().name()),
+                        sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]", 
+                            player.name(), _.gameSelected().name(), player.lifeTotal(), _.gameSelected().id(), player.id())
+                    );
+                } else {
+                    log.writeAction(
+                        sprintf.sprintf("join %s to %s of %s", player.name(), _.teamSelected().name(), _.gameSelected().name()),
+                        sprintf.sprintf("Player '%s' joined team '%s' of game '%s' [gid=%s, tid=%s, pid=%s]", 
+                            player.name(), _.teamSelected().name(), _.gameSelected().name(), _.gameSelected().id(), _.teamSelected().id(), player.id())
+                    );
+                }
                 self.activePlayer = player;
+                self.activeGame = _.gameSelected();
             });
         this.joinPlayerModal.playerName = ko.observable();
         this.joinPlayerModal.games = ko.observableArray();
         this.joinPlayerModal.gameSelected = ko.observable();
+        this.joinPlayerModal.teamSelected = ko.observable();
+        this.joinPlayerModal.teams = ko.pureComputed(function () {
+            var selection = self.joinPlayerModal.gameSelected() 
+            var result = [{name: ko.observable('Single player or a new team'), id: function () { return null; }}];
+            if (selection) {
+                api.findGameById(selection.id()).teams().forEach(function (item) {
+                    result.push(item);
+                });
+            }
+            return result;
+        });
         this.joinPlayerModal.show = function () {
             var _ = self.joinPlayerModal;
             _.playerName("");
             _.games(api.getGames());
             _.gameSelected(self.activeGame);
+            _.teamSelected(_.teams()[0]);
             _.active(true);
         }
 

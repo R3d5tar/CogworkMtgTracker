@@ -14,7 +14,7 @@ define([], function () {
             return _gamesManager.findGameById(gameId);
         };
 
-        this.joinPlayer = function (name, gameId) {
+        this.joinPlayer = function (name, gameId, teamId) {
             var game = null;
             if (gameId) {
                 game = this.getGameById(gameId);
@@ -22,7 +22,19 @@ define([], function () {
             if (!game) {
                 game = _gamesManager.getPrimaryGame();
             }
-            return game.joinPlayer(name);
+
+            var team = null;
+            if (teamId) {
+                team = game.findTeamById(teamId);
+            }
+
+            return game.joinPlayer(name, team);
+        };
+
+        this.removeTeam = function (gameId, teamId) {
+            var game = _gamesManager.findGameById(gameId);
+            var team = game.findTeamById(teamId);
+            game.removeTeam(team);
         };
 
         this.getDefaultStartingLifeTotal = function () {
