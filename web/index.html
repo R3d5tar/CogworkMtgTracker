@@ -46,15 +46,15 @@
                 <div class="one-third column">
                     <h3><i class="ra ra-tower ra-fw" aria-hidden="true"></i> Setup</h3>
 
-                    <button class="button-primary" data-bind="click: ui.startGameModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.startGameModal.show">
                         <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
                         start game
                     </button>
-                    <button class="button-primary" data-bind="click: ui.joinPlayerModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.joinPlayerModal.show">
                         <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
                         join player
                     </button>
-                    <button data-bind="click: ui.resetAllModal.show">
+                    <button class="u-max-full-width" data-bind="click: ui.resetAllModal.show">
                         <i class="ra ra-demolish ra-lg ra-fw" aria-hidden="true"></i>
                         reset all
                     </button>
@@ -72,11 +72,12 @@
                 <div class="one-third column">
                     <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h3>
 
-                    <button class="button-primary" data-bind="click: ui.dealCombatDamageModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.dealCombatDamageModal.show">
                         <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
-                        deal combat damage
+                        deal damage
+                        
                     </button>
-                    <button class="button-primary" data-bind="click: ui.gainLifeModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.gainLifeModal.show">
                         <i class="ra ra-heart-bottle ra-lg ra-fw" aria-hidden="true"></i>
                         gain life
                     </button>
@@ -85,7 +86,7 @@
                     <button data-bind="click: ui.setLifeModal.show">set life</button>-->
                 </div>
 
-                <div class="one-third column">
+                <!--<div class="one-third column">
                     <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h3>
 
                     <button class="button-primary">
@@ -98,7 +99,7 @@
                     <button>
                         <i class="fa fa-crosshairs fa-lg fa-fw" aura-hidden="true"></i>
                         set counter</button>
-                </div>
+                </div>-->
             </div>
 
             <div class="row command">
@@ -139,11 +140,13 @@
                                     <h3 class="name" data-bind="text: name"></h3>
                                     <p class="id" data-bind="text: id"></p>
                                 </div>
-                                <div class="row" data-bind="foreach: players">
+                                <div class="row" data-bind="foreach: players">                          
                                     <div class="player one-half column">
+                                        <!-- ko if: ($parent.players.length > 1) -->
                                         <p class="name" data-bind="text: name"></p>
+                                        <!-- /ko -->
                                         <p class="id" data-bind="text: id"></p>
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>

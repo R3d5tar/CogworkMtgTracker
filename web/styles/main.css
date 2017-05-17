@@ -80,15 +80,33 @@ input.error {
     text-align: center;
 }
 
-.display .name {
+.display .name, .display .gamename {
     white-space: nowrap;
     /*background-color: aliceblue;*/
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-
 .u-cf + .column, 
 .u-cf + .columns {
     margin-left: 0;
+}
+
+/* Larger than phablet */
+@media (min-width: 550px) and (max-width: 750px) {
+    .actions button {
+        width: 100%;
+        padding-left: 1.0rem;
+        
+    }
+
+    .actions button .ra, .actions button .fa {
+        float: left;
+        vertical-align: text-bottom;
+        padding-top: 12px;
+    }
+
+    .actions h3 {
+        font-size: 3.0rem;
+    }
 }
