@@ -91,7 +91,7 @@ define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
             this.adjustLifeTotal(+1 * totalDrain);
         }
 
-        this.toJsonObject = function () {
+        this.toJsonObject =function () {
             var result = {
                 "id": _id,
                 "lifeTotal": this.lifeTotal(),

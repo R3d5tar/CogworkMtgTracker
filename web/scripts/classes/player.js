@@ -67,7 +67,7 @@ define(['ko', 'scripts/tools/utils'], function (ko, utils) {
                 "name": this.name()
             };
         }
-
+        
         //some final logic...
         if (this.team()) {
             this.team().addPlayer(this);

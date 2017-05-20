@@ -7,6 +7,8 @@ define(['jquery', 'jquery.validate'], function ($) {
         this.title = params.title;
         this.message = params.message;
         this.context = params.with;
+        this.hideNegative = !!params.hideNegative;
+        this.hidePositive = !!params.hidePositive;
 
         this.active = params.active;
         if (!this.active) 

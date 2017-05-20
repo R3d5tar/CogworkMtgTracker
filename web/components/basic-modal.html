@@ -13,8 +13,8 @@
         <!-- /ko -->
         <hr class="modal-buttons-seperator">
         <div class="modal-buttons">
-            <button type="button" class="button" data-bind="text: buttonNegative, click: cancelCallback" />
-            <button type="submit" class="button button-primary" data-bind="text: buttonPositive" />
+            <button type="button" class="button" data-bind="text: buttonNegative, click: cancelCallback, visible: !hideNegative" />
+            <button type="submit" class="button button-primary" data-bind="text: buttonPositive, visible: !hidePositive" />
         </div>
     </form>
 </div>

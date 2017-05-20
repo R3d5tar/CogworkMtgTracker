@@ -1,4 +1,4 @@
-define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, sprintf, api, log, Modal) {
+define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], function (ko, sprintf, api, log, Modal, utils) {
 
     var ui = new function () {
         var self = this;
@@ -17,8 +17,8 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             function ok() {
                 this.active(false);
                 var game = api.startGame(
-                        self.startGameModal.gameName(),
-                        self.startGameModal.startingLifeTotal()
+                    self.startGameModal.gameName(),
+                    self.startGameModal.startingLifeTotal()
                 );
                 log.writeAction(
                     sprintf.sprintf("start game %s", game.startingLifeTotal()),
@@ -36,20 +36,20 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
         }
 
         this.joinPlayerModal = new Modal(
-            function ok () {
+            function ok() {
                 this.active(false);
                 var _ = self.joinPlayerModal;
                 var player = api.joinPlayer(_.playerName(), _.gameSelected().id(), _.teamSelected().id());
                 if (_.teamSelected().id() != null) {
                     log.writeAction(
                         sprintf.sprintf("join %s to %s", player.name(), _.gameSelected().name()),
-                        sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]", 
+                        sprintf.sprintf("Player '%s' joined game '%s' at %s life [gid=%s, pid=%s]",
                             player.name(), _.gameSelected().name(), player.lifeTotal(), _.gameSelected().id(), player.id())
                     );
                 } else {
                     log.writeAction(
                         sprintf.sprintf("join %s to %s of %s", player.name(), _.teamSelected().name(), _.gameSelected().name()),
-                        sprintf.sprintf("Player '%s' joined team '%s' of game '%s' [gid=%s, tid=%s, pid=%s]", 
+                        sprintf.sprintf("Player '%s' joined team '%s' of game '%s' [gid=%s, tid=%s, pid=%s]",
                             player.name(), _.teamSelected().name(), _.gameSelected().name(), _.gameSelected().id(), _.teamSelected().id(), player.id())
                     );
                 }
@@ -61,8 +61,8 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
         this.joinPlayerModal.gameSelected = ko.observable();
         this.joinPlayerModal.teamSelected = ko.observable();
         this.joinPlayerModal.teams = ko.pureComputed(function () {
-            var selection = self.joinPlayerModal.gameSelected() 
-            var result = [{name: ko.observable('Single player or a new team'), id: function () { return null; }}];
+            var selection = self.joinPlayerModal.gameSelected()
+            var result = [{ name: ko.observable('Single player or a new team'), id: function () { return null; } }];
             if (selection) {
                 api.findGameById(selection.id()).teams().forEach(function (item) {
                     result.push(item);
@@ -83,9 +83,15 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             function ok() {
                 this.active(false);
                 api.resetAll();
-                log.writeAction("reset all","all games were reset and removed, bye!");
+                log.writeAction("reset all", "all games were reset and removed, bye!");
                 self.activeGame = null;
             });
+        this.resetAllModal.sure = ko.observable(false);
+        this.resetAllModal.show = function () {
+            var _ = self.resetAllModal;
+            _.sure(false);
+            _.active(true);
+        };
 
         this.dealCombatDamageModal = new Modal(
             function ok() {
@@ -98,7 +104,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
         this.dealCombatDamageModal.games = ko.observableArray();
         this.dealCombatDamageModal.playerSelected = ko.observable();
         this.dealCombatDamageModal.players = ko.pureComputed(function () {
-            var selection = self.dealCombatDamageModal.gameSelected() 
+            var selection = self.dealCombatDamageModal.gameSelected()
             if (selection) {
                 return api.findGameById(selection.id()).players();
             } else {
@@ -133,7 +139,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
         this.gainLifeModal.games = ko.observableArray();
         this.gainLifeModal.playerSelected = ko.observable();
         this.gainLifeModal.players = ko.pureComputed(function () {
-            var selection = self.gainLifeModal.gameSelected() 
+            var selection = self.gainLifeModal.gameSelected()
             if (selection) {
                 return api.findGameById(selection.id()).players();
             } else {
@@ -157,6 +163,37 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             _.active(true);
         }
 
+        this.exportStateDialog = new Modal();
+        this.exportStateDialog.download = ko.observable();
+        this.exportStateDialog.filename = ko.computed(function () {
+            return "CogworkMtgTracker-" + utils.filenameTimestamp() + ".json";
+        }).bind(this);
+        this.exportStateDialog.shareUrl = ko.observable();
+        this.exportStateDialog.shareText = ko.computed(function () {
+            return "Cogwork MTG Tracker - Shared state of " + utils.currentTimeString();
+        }).bind(this);
+        this.exportStateDialog.show = function () {
+            var _ = self.exportStateDialog;
+            _.download(api.exportStateDownloadLink());
+            _.shareUrl(api.exportShareUrl());
+            _.active(true);
+        }
+
+        this.importStateDialog = new Modal(function ok() {
+            var _ = self.importStateDialog;
+            var file = _.fileObject()
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                //TODO: options: merge? or replace??
+                api.importFromFile(e.target.result);
+                _.active(false);
+                _.fileObject(null);
+            };
+            reader.readAsText(file);
+        });
+        this.importStateDialog.fileObject = ko.observable();
+
+
         /* generic logic */
         this.modals = ko.observableArray([
             //this.firstModal, 
@@ -164,7 +201,9 @@ define(['ko', 'sprintf', './api', './log', './models/Modal'], function (ko, spri
             this.joinPlayerModal,
             this.resetAllModal,
             this.dealCombatDamageModal,
-            this.gainLifeModal
+            this.gainLifeModal,
+            this.exportStateDialog,
+            this.importStateDialog
         ]);
 
         this.modalActive = ko.computed(function () {

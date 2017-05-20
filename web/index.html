@@ -5,22 +5,25 @@
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
     <title>Cogwork MTG Tracker</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta property="og:title" content="Cogwork MTG Tracker" />
+    <meta name="description" content="Keeping track of your games, the easy way." />
+    <meta property="og:description" content="Keeping track of your games, the easy way." />
+    <meta property="og:url" content="https://r3d5tar.github.io/CogworkMtgTracker/web/" />
+    <meta property="og:image" content="images/preview-text-480x360.jpg" />
+
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- FONT -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
     <!-- CSS -->
-    <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css">
-    <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/rpg-awesome/css/rpg-awesome.min.css">
-    <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/rpg-awesome/css/rpg-awesome.min.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 </head>
 
 <body>
@@ -50,7 +53,7 @@
                         <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
                         start game
                     </button>
-                    <button class="button-primary u-max-full-width" data-bind="click: ui.joinPlayerModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.joinPlayerModal.show, enable: manager.hasGame">
                         <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
                         join player
                     </button>
@@ -58,6 +61,17 @@
                         <i class="ra ra-demolish ra-lg ra-fw" aria-hidden="true"></i>
                         reset all
                     </button>
+
+
+                    <button class="u-max-full-width" data-bind="click: ui.exportStateDialog.show">
+                        <i class="fa fa-share fa-lg fa-fw" aria-hidden="true"></i>
+                        export state
+                    </button>
+                    <button class="u-max-full-width" data-bind="click: ui.importStateDialog.show">
+                        <i class="fa fa-upload fa-lg fa-fw" aria-hidden="true"></i>
+                        import state
+                    </button>
+
                     <!-- TODO: disable when no games exist -->
                     <!--
                     <button class="button-primary">register commander</button>
@@ -72,12 +86,12 @@
                 <div class="one-third column">
                     <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h3>
 
-                    <button class="button-primary u-max-full-width" data-bind="click: ui.dealCombatDamageModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.dealCombatDamageModal.show, enable: manager.hasTeam">
                         <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
                         deal damage
                         
                     </button>
-                    <button class="button-primary u-max-full-width" data-bind="click: ui.gainLifeModal.show">
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.gainLifeModal.show, enable: manager.hasTeam">
                         <i class="ra ra-heart-bottle ra-lg ra-fw" aria-hidden="true"></i>
                         gain life
                     </button>
@@ -102,9 +116,9 @@
                 </div>-->
             </div>
 
-            <div class="row command">
+            <!--<div class="row command">
                 &gt; <span class="input" contenteditable>start game</span>
-            </div>
+            </div>-->
 
             <div class="row">
                 <pre><code id="log"></code></pre>
@@ -134,19 +148,19 @@
                                     <h4 class="life">
                                         <i class="ra ra-glass-heart ra-fw" aria-hidden="true"></i>
                                         <span data-bind="text: lifeTotal"></span>
-                                    <h4>
+                                        <h4>
                                 </div>
                                 <div class="row">
                                     <h3 class="name" data-bind="text: name"></h3>
                                     <p class="id" data-bind="text: id"></p>
                                 </div>
-                                <div class="row" data-bind="foreach: players">                          
+                                <div class="row" data-bind="foreach: players">
                                     <div class="player one-half column">
                                         <!-- ko if: ($parent.players.length > 1) -->
                                         <p class="name" data-bind="text: name"></p>
                                         <!-- /ko -->
                                         <p class="id" data-bind="text: id"></p>
-                                    </div>    
+                                    </div>
                                 </div>
                                 <!-- TOOD: build in a Are You Sure Dialog? -->
                                 <button class="notext" data-bind="click: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id())">
@@ -184,7 +198,7 @@
                                  with: resetAllModal">
                 <label>Are you sure?</label>
                 <label>
-                    <input name="confirm" type="checkbox" required />
+                    <input name="confirm" type="checkbox" required data-bind="checked: sure"/>
                         <span class="label-body" >Yes, I am!</span>
                     </label>
             </basic-modal>
@@ -296,11 +310,33 @@
                 </i>
 
             </basic-modal>
+
+            <basic-modal params="title: 'Export state',
+                                 message: 'Use the below links to download the current state or share it with a friend.',
+                                 hideNegative: true,
+                                 buttonPositive: 'close',
+                                 with: exportStateDialog">
+                <a class="button" data-bind="attr: { href: download, download: filename }">
+                    <i class="fa fa-download fa-fw" aria-hidden="true"></i>
+                    Download
+                </a>
+
+                <share-buttons params="text: shareText, url: shareUrl"></share-buttons>
+
+            </basic-modal>
+
+            <basic-modal params="title: 'Import State',
+                                 message: 'Upload a previous downloaded game state file and import it.',
+                                 buttonPositive: 'import',
+                                 with: importStateDialog">
+                <input type="file" name="file" data-bind="fileUpload: fileObject" required="true" />
+            </basic-modal>
+
+            <!--<a data-bind="attr: { href: api.exportStateDownloadLink }, text: api.exportStateDownloadLink">Download</a>-->
         </div>
     </div>
 
     <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
-
 </body>
 
 </html>

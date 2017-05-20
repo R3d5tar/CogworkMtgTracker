@@ -30,7 +30,7 @@ define(['scripts/classes/gamesmanager'], function (GameManager) {
             
             //check if last-saved time still matches..
             var savedTimeStamp = loadTimeStamp();
-            if (savedTimeStamp != lastSavedTimeStamp) {
+            if (lastSavedTimeStamp != null && savedTimeStamp != lastSavedTimeStamp) {
                 throw "There is a conflict with the localStorage, it seams we aren't the only one modifing. Please close this tab or close an other tab and refresh this one...";
             }
             else

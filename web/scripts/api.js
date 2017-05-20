@@ -1,4 +1,4 @@
-define([], function () {
+define(['./tools/utils', './classes/GamesManager'], function (utils, GamesManager) {
     var api = new function () {
         var _gamesManager = null;
 
@@ -48,11 +48,11 @@ define([], function () {
         this.getGames = function () {
             return _gamesManager.getGames();
         };
-        
+
         this.findGameById = function (id) {
             return _gamesManager.findGameById(id);
         };
-        
+
         this.dealCombatDamage = function (gameId, playerId, damage) {
             var game = _gamesManager.findGameById(gameId);
             var player = game.findPlayerById(playerId);
@@ -67,6 +67,21 @@ define([], function () {
 
         this.resetAll = function () {
             _gamesManager.resetAll();
+        }
+
+        this.exportStateDownloadLink = function () {
+            return "data:application/json;base64,"
+                + btoa(JSON.stringify(_gamesManager.toJsonObject(), null, '\t'));
+        }
+
+        this.exportShareUrl = function () {
+            return window.location.origin + window.location.pathname + "#load=" //TODO: query string or hash?
+                + utils.encodeToUrlParam(_gamesManager.toJsonObject());
+        }
+
+        this.importFromFile = function (data) {
+            var newGamesManager = GamesManager.fromJsonObject(JSON.parse(data));
+            _gamesManager.merge(newGamesManager); //TOOD....
         }
 
     }();

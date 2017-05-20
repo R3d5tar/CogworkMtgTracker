@@ -6,7 +6,7 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             _id = id;
         }
         this.parent = parent; //gameManager
-        var _childern = ko.observableArray([]);
+        var _teams = ko.observableArray([]);
         this.name = ko.observable(_id.toString());
         this.startingLifeTotal = ko.observable(null);
 
@@ -14,34 +14,28 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             return _id.toString();
         });
 
-        this.childeren = function () {
-            return _childern().filter(function () { return true; });
-        }
-
         this.teams = ko.computed(function () {
-            return getChildernOfType("team");
+            return _teams();
         }, this);
 
         this.players = ko.computed(function () {
-            return getChildernOfType("player");
+            var result = [];
+            this.teams().forEach(function (team) {
+                team.players().forEach(function (player) {
+                    result.push(player);
+                });
+            });
+            return result;
         }, this);
 
-        this.commanders = function () {
-            return getChildernOfType("commander");
-        }
-
-        this.counters = function () {
-            return getChildernOfType("counters");
-        }
-
         this.addTeam = function (team) {
-            _childern.push(team);
+            _teams.push(team);
             return team;
         }.bind(this);
 
         this.removeTeam = function (team) {
-            var index = _childern.indexOf(team);
-            _childern.splice(index, 1);
+            var index = _teams.indexOf(team);
+            _teams.splice(index, 1);
         }.bind(this);
 
         this.joinNewTeam = function () {
@@ -54,7 +48,6 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
                 team = this.joinNewTeam();
             }
             var player = new Player(this, team, name);
-            _childern.push(player);
             return player;
         }.bind(this);
 
@@ -62,6 +55,14 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             return this.players()
                 .find(function (player) { return player.id() === id; });
         }
+
+        this.hasTeam = ko.observable(function () {
+            return this.teams().length > 0;
+        }).bind(this);
+
+        this.hasPlayer = ko.observable(function () {
+            return this.players().length > 0;
+        }).bind(this);
 
         this.findPlayerByName = function (name) {
             return this.players()
@@ -83,14 +84,6 @@ define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf,
             playerA.setLifeTotal(playerB.lifeTotal());
             playerB.setLifeTotal(lifeTotalCache);
         }
-
-        function getChildernOfType(type) {
-            return _childern().filter(
-                function (child) {
-                    return child.types && child.types.some(function (item) { return item === type; });
-                }
-            );
-        };
 
         this.toJsonObject = function () {
             var result = {

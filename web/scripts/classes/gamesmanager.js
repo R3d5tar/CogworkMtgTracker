@@ -1,6 +1,7 @@
 define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, Game, sprintf, moment, utils) {
 
     var GamesManager = function GamesManager() {
+        var self = this;
         var _games = ko.observableArray([]);
         this.games = _games; //only for usage in display 
 
@@ -72,6 +73,22 @@ define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, 
             return _games();
         };
 
+        this.hasGame = ko.computed(function () {
+            return _games().length > 0;
+        }).bind(this);
+
+        this.hasTeam = ko.computed(function () {
+            return _games().some(
+                function (game) { return game.hasTeam(); 
+            });
+        }).bind(this);
+
+        this.hasPlayer = ko.computed(function () {
+            return _games().some(
+                function (game) { return game.hasPlayer(); 
+            });
+        }).bind(this);
+
         this.resetAll = function () {
             while (_games().length > 0) {
                 _games.pop();
@@ -80,13 +97,28 @@ define(['ko', './game', 'sprintf', 'moment', './../tools/utils'], function (ko, 
 
         this.toJsonObject = function () {
             var result = {
-                defaultStartingLifeTotal: this.defaultStartingLifeTotal(),
+                defaultStartingLifeTotal: self.defaultStartingLifeTotal(),
                 games: []
             };
             _games().forEach(function (game) {
                 result.games.push(game.toJsonObject());
             });
             return result;
+        }
+
+        this.merge = function (otherManager) {
+            this.defaultStartingLifeTotal(otherManager.defaultStartingLifeTotal());
+
+            otherManager.games().forEach(function (game) {
+                var found = self.findGameById(game.id());
+                if (found) {
+                    //remove old one...
+                    self.removeGame(found);
+                }
+                //add the new one
+                self.addGame(game);
+                game.parent = self;
+            });
         }
     }
 

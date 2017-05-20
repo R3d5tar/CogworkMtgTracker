@@ -1,4 +1,4 @@
-define([], function () {
+define(['msgpack'], function (msgpack) {
     var utils = {};
 
     utils.timeOfDayName = function () {
@@ -17,6 +17,28 @@ define([], function () {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+
+    utils.filenameTimestamp = function () {
+        return new Date().toJSON();
+    }
+
+    utils.currentTimeString = function () {
+        return new Date().toLocaleDateString();
+    }
+
+    utils.encodeToUrlParam = function (jsonObject) {
+        var buffer = msgpack.encode(jsonObject);
+        return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
+    }
+
+     utils.decodeFromUrlParam = function (urlParam) {
+        var stringWithBytes = atob(urlParam);
+        var buffer = new Uint8Array(stringWithBytes.length);
+        for( var i = 0; i < stringWithBytes.length; i++) {
+            buffer[i] = stringWithBytes.charCodeAt(i);
+        }
+        return msgpack.decode(buffer);
     }
 
     return utils;
