@@ -37,12 +37,20 @@ requirejs(
         log.init(document.getElementById("log"));
 
         ko.components.register('basic-modal', {
-            viewModel: { require: 'components/basic-modal' },
-            template: { require: 'text!components/basic-modal.html' }
+            viewModel: {
+                require: 'components/basic-modal'
+            },
+            template: {
+                require: 'text!components/basic-modal.html'
+            }
         });
         ko.components.register('share-buttons', {
-            viewModel: { require: 'components/share-buttons' },
-            template: { require: 'text!components/share-buttons.html' }
+            viewModel: {
+                require: 'components/share-buttons'
+            },
+            template: {
+                require: 'text!components/share-buttons.html'
+            }
         });
 
         ko.bindingHandlers.fileUpload = {

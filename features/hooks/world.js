@@ -16,7 +16,9 @@ requirejs.config({
 
 });
 
-var { defineSupportCode } = require('cucumber');
+var {
+    defineSupportCode
+} = require('cucumber');
 
 defineSupportCode(function (context) {
     requirejs(['scripts/classes/gamesmanager'], function (GamesManager) {
@@ -27,7 +29,7 @@ defineSupportCode(function (context) {
 
         //setup World    
         var cogWorkMtgTrackerWorld = function () {
-            
+
             this.gamesManager = new GamesManager();
             this.cache = {};
             this.stack = [];
