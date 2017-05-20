@@ -31,7 +31,7 @@
             <div class="one-third column">
                 <h1>Cog<wbr>work MTG Tracker</h1>
             </div>
-            <div class="two-thirds column">
+            <div class="intro two-thirds column">
                 <p>
                     A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and life totals. Primary function
                     is keeping track of life totals for multiple players during the game, but the ulitmate goal is to be
@@ -148,7 +148,8 @@
                                         <p class="id" data-bind="text: id"></p>
                                     </div>    
                                 </div>
-                                <button data-bind="click: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id())">
+                                <!-- TOOD: build in a Are You Sure Dialog? -->
+                                <button class="notext" data-bind="click: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id())">
                                     <i class="fa fa-window-close fa-fw" aria-valuetext="remove"></i>
                                 </button>
                             </div>

@@ -1,3 +1,30 @@
+
+header .one-third.column {
+    width: 100%;
+    
+}
+
+header .intro.column {
+    padding: 1rem 1rem 0rem 1rem;
+    margin: 1rem 0rem 1rem 0rem;
+    border-left: 1px solid slategrey;
+    clear: both;
+    width: 100%;
+    margin-left: 0;
+}
+
+@media (min-width: 750px) { /* Larger than tablet */
+    header .one-third.column {
+        width: 30.6666666667%;
+    }
+
+    header .intro.column {
+        clear: unset;
+        width: 65.3333333333%;
+        margin-left: 4%;
+    }
+}
+
 .command {
     background-color: black;
     color: whitesmoke;
@@ -109,4 +136,9 @@ input.error {
     .actions h3 {
         font-size: 3.0rem;
     }
+}
+
+.button.notext, button.notext, input[type="submit"].notext, input[type="reset"].notext, input[type="button"].notext {
+    padding: 0px 5px;
+    font-size: xx-large;
 }
