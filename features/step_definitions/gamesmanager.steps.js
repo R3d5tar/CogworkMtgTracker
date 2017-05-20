@@ -16,7 +16,7 @@ defineSupportCode(function (context) {
         Given('there are already {int} games registered', function (int, callback) {
             for (var i = 0; i < int; i++) {
                 this.gamesManager.startGame();
-            };
+            }
 
             callback(null);
         });

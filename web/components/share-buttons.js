@@ -8,9 +8,6 @@ var self = this;
         //whatsapp://send?text=Cogwork%20MTG%20Tracker%20-%20Shared-state%20%20TIMESTAMP%20THIS_IS_MY_URL
         this.whatsAppUrl = ko.pureComputed(function () {
             var rawUrl = self.rawUrl();
-            // if (rawUrl) {
-            //     rawUrl = rawUrl.replace("#", "?")
-            // }
             
             return sprintf.sprintf(
                 "whatsapp://send?text=%s",
