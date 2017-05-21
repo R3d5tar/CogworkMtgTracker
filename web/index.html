@@ -26,7 +26,7 @@
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 </head>
 
-<body>
+<body data-bind="css: {'modal-open': ui.modalActive}">
 
     <!-- Main Body-->
     <div class="container">
@@ -180,7 +180,7 @@
     </div>
 
     <!-- Modals -->
-    <div class="modal" data-bind="css: {'modal-open': ui.modalActive}, click: ui.closeModal">
+    <div class="backplane" data-bind="click: ui.closeModal">
         <div class="modal-inner" data-bind="with: ui">
             <!--<basic-modal params="active: firstModal.active, 
                                  okCallback: firstModal.okCallback,
@@ -211,9 +211,11 @@
                                  with: startGameModal">
                 <label>Game name:</label>
                 <input name="name" type="text" data-bind="value: gameName" required />
-                <label>Players (or teams) starting life total:</label>
-                <input name="lifetotal" type="number" data-bind="value: startingLifeTotal" required min="0" />
-                <!-- TODO: create a reusable / touch friendly number input box, if needed after testing... -->
+                <number-input params="value: startingLifeTotal, 
+                                      label: 'Players (or teams) starting life total:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
             </basic-modal>
 
             <basic-modal params="active: joinPlayerModal.active, 
@@ -234,9 +236,7 @@
                         </span>
                     </label>
                 </div>
-                <!-- TODO: new team or existing team -->
                 <label>Will join team:</label>
-
                 <select data-bind="options: teams,
                        optionsText: 'name',
                        value: teamSelected"></select>
@@ -268,8 +268,12 @@
                         </span>
                     </label>
                 </div>
-                <label>Combat damage:</label>
-                <input name="combatDamage" type="number" data-bind="value: damage" required min="0" />
+                <number-input params="value: damage, 
+                                      label: 'Combat damage:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
+
                 <i>
                     <p data-bind="if: playerSelected">
                         <span data-bind="text: playerSelected().name"></span>'s life after damage: <span data-bind="text: lifeAfterDamage"></span>
@@ -300,8 +304,11 @@
                         </span>
                     </label>
                 </div>
-                <label>Life gain:</label>
-                <input name="lifegain" type="number" data-bind="value: lifeGain" required min="0" />
+                <number-input params="value: lifeGain, 
+                                      label: 'Life gain:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
                 <i>
                     <p data-bind="if: playerSelected">
                         <span data-bind="text: playerSelected().name"></span>'s life after gaining life: <span data-bind="text: lifeAfterDamage"></span>
@@ -330,8 +337,6 @@
                                  with: importStateDialog">
                 <input type="file" name="file" data-bind="fileUpload: fileObject" required="true" />
             </basic-modal>
-
-            <!--<a data-bind="attr: { href: api.exportStateDownloadLink }, text: api.exportStateDownloadLink">Download</a>-->
         </div>
     </div>
 

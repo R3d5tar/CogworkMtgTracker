@@ -17,8 +17,8 @@ requirejs.config({
 
 
 requirejs(
-    ["scripts/classes/gamesmanager", "ko", 'jquery', "scripts/log", "scripts/ui", "scripts/api", "scripts/storage", "scripts/tools/utils"],
-    function (GamesManager, ko, $, log, ui, api, storage, utils) {
+    ["scripts/classes/gamesmanager", "ko", 'jquery', "scripts/log", "scripts/ui", "scripts/api", "scripts/koConfig", "scripts/storage", "scripts/tools/utils"],
+    function (GamesManager, ko, $, log, ui, api, _, storage, utils) {
         function tryLoadGamesManagerFromUrl() {
             if (window.location.hash.startsWith("#load=")) {
                 var loadString = window.location.hash.substr(6);
@@ -35,37 +35,6 @@ requirejs(
         }
 
         log.init(document.getElementById("log"));
-
-        ko.components.register('basic-modal', {
-            viewModel: {
-                require: 'components/basic-modal'
-            },
-            template: {
-                require: 'text!components/basic-modal.html'
-            }
-        });
-        ko.components.register('share-buttons', {
-            viewModel: {
-                require: 'components/share-buttons'
-            },
-            template: {
-                require: 'text!components/share-buttons.html'
-            }
-        });
-
-        ko.bindingHandlers.fileUpload = {
-            init: function (element, valueAccessor) {
-                $(element).change(function () {
-                    valueAccessor()(element.files[0]);
-                });
-            },
-            update: function (element, valueAccessor) {
-                if (ko.unwrap(valueAccessor()) === null) {
-                    $(element).wrap('<form>').closest('form').get(0).reset();
-                    $(element).unwrap();
-                }
-            }
-        };
 
         var viewModel = {
             manager: new GamesManager(),
@@ -88,6 +57,7 @@ requirejs(
         };
 
         api.init(viewModel.manager);
+        
         ko.applyBindings(viewModel);
     }
 );

@@ -1,4 +1,8 @@
-.modal {
+body.modal-open {
+    overflow: hidden;
+}
+
+.backplane {
   position: fixed;
   left: 0;
   top: 0;
@@ -10,13 +14,13 @@
   opacity: 0;
   transition: opacity .15s ease-in-out;
 }
-.modal.modal-open {
+.modal-open .backplane {
   visibility: visible;
   backface-visibility: visible;
   opacity: 1;
   z-index: 1;
 }
-.modal .modal-inner {
+.backplane .modal-inner {
   position: relative;
   height: 100%;
   display: flex;
@@ -24,7 +28,7 @@
   justify-content: center;
   align-items: center;
 }
-.modal .modal-content {
+.backplane .modal-content {
   background-color: white;
   max-width: 35em;
   padding: 1em 1.5em;
@@ -36,59 +40,62 @@
   opacity: 0;
   display: none;
 }
-.modal .modal-content.modal-open {
+.backplane .modal-content.modal-open {
   visibility: visible;
   backface-visibility: visible;
   opacity: 1;
   display: block;
+  max-height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.modal .modal-close-icon {
+.backplane .modal-close-icon {
   position: absolute;
   right: 1.5em;
 }
-.modal .modal-content-inner {
+.backplane .modal-content-inner {
   padding-right: 2em;
 }
-.modal .modal-content-inner h1, 
-.modal .modal-content-inner h2, 
-.modal .modal-content-inner h3, 
-.modal .modal-content-inner h4, 
-.modal .modal-content-inner h5, 
-.modal .modal-content-inner h6 {
+.backplane .modal-content-inner h1, 
+.backplane .modal-content-inner h2, 
+.backplane .modal-content-inner h3, 
+.backplane .modal-content-inner h4, 
+.backplane .modal-content-inner h5, 
+.backplane .modal-content-inner h6 {
   margin-bottom: 0.25em;
 }
-.modal .modal-content-inner p {
+.backplane .modal-content-inner p {
   margin-bottom: 1em;
 }
-.modal .modal-buttons-seperator {
+.backplane .modal-buttons-seperator {
   margin: 1.5em 0;
   margin-top: 0;
 }
-.modal .modal-buttons {
+.backplane .modal-buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
-.modal .modal-buttons button {
+.backplane .modal-buttons button {
   margin-left: 1em;
 }
-.modal .modal-buttons button:first-child {
+.backplane .modal-buttons button:first-child {
   margin-left: 0;
 }
 
 /* form styling */
-.modal form {
+.backplane form {
   margin-bottom: 0rem;
 }
 
-.modal input[type=text] {
+.backplane input[type=text] {
   width: 100%;
 }
 
-.modal input[type=number] {
-  width: 8.0rem;
+.backplane input[type=number] {
+  width: 5.5rem;
   text-align: end;
 }
 
@@ -97,14 +104,14 @@
 
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {
-  .modal .modal-inner .modal-content {
+  .backplane .modal-inner .modal-content {
         min-width: 400px;
   }
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {
-  .modal .modal-inner .modal-content {
+  .backplane .modal-inner .modal-content {
       max-width: 600px;
   }
 }

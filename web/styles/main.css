@@ -137,3 +137,19 @@ input.error {
     padding: 0px 5px;
     font-size: xx-large;
 }
+
+.button-squared {
+    padding: 0px 5px;
+    width: 40px;
+    max-width: 40px;
+}
+
+sub, sup {
+    display: none;
+
+}
+@media (min-width: 750px) { /* Larger than tablet */
+    sub, sup {
+        display: initial;
+    }
+}
