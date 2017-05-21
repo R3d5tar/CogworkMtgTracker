@@ -1,6 +1,6 @@
-define(['sprintf', 'ko'], function (sprintf, ko) {
+define(['ko', 'text!./share-buttons.html', 'sprintf'], function (ko, htmlString, sprintf) {
 
-    return function ShareButtons(params) {
+    var componentViewModel = function (params) {
         var self = this;
         this.text = params.text;
         this.rawUrl = params.url;
@@ -34,4 +34,5 @@ define(['sprintf', 'ko'], function (sprintf, ko) {
 
     }
 
+    return { viewModel: componentViewModel, template: htmlString }; 
 });

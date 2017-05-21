@@ -162,8 +162,12 @@
                                         <p class="id" data-bind="text: id"></p>
                                     </div>
                                 </div>
-                                <!-- TOOD: build in a Are You Sure Dialog? -->
-                                <button class="notext" data-bind="click: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id())">
+                                <button class="notext" data-bind="
+                                    click: $root.ui.confirmDialog.show.bind($root.ui.confirmDialog, {
+                                        callback: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id()),
+                                        title: ko.computed( function () { return 'Exile ' + $data.name() + '?' } ),
+                                        message: ko.computed( function () { return 'Do you really want to exile ' + $data.name() + '?' } )
+                                    })">                               
                                     <i class="fa fa-window-close fa-fw" aria-valuetext="remove"></i>
                                 </button>
                             </div>
@@ -182,14 +186,11 @@
     <!-- Modals -->
     <div class="backplane" data-bind="click: ui.closeModal">
         <div class="modal-inner" data-bind="with: ui">
-            <!--<basic-modal params="active: firstModal.active, 
-                                 okCallback: firstModal.okCallback,
-                                 cancelCallback: firstModal.cancelCallback,
-                                 title: 'First Modal',
-                                 message: 'This is my first reusable modal',
-                                 with: null">
-                <b>Boeya</b>
-            </basic-modal>-->
+
+            <basic-modal params="buttonPositive: 'Yes',
+                                 buttonNegative: 'No',
+                                 with: confirmDialog">
+            </basic-modal>
 
             <basic-modal params="title: 'Reset all',
                                  message: 'This will remove all games including all teams, all players, all life totals, all commanders and all tracked counters.',
@@ -273,14 +274,12 @@
                                       required: true,
                                       min: 0" >
                 </number-input>
-
                 <i>
                     <p data-bind="if: playerSelected">
                         <span data-bind="text: playerSelected().name"></span>'s life after damage: <span data-bind="text: lifeAfterDamage"></span>
                     </p>
                     <p data-bind="ifnot: playerSelected">&nbsp;</p>
                 </i>
-
             </basic-modal>
 
             <basic-modal params="title: 'Gain life',
@@ -342,5 +341,4 @@
 
     <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
 </body>
-
 </html>

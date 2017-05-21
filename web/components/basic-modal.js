@@ -1,14 +1,20 @@
-define(['jquery', 'jquery.validate'], function ($) {
+define(['text!./basic-modal.html', 'jquery', 'jquery.validate'], function (htmlString, $) {
     $(document).ready(function () {
         $('form').validate();
     });
 
-    return function BasicModal(params) {
-        this.title = params.title;
-        this.message = params.message;
+    var componentViewModel = function (params) {
         this.context = params.with;
         this.hideNegative = !!params.hideNegative;
         this.hidePositive = !!params.hidePositive;
+
+        this.title = params.title;
+        if (!this.title) 
+            this.title = this.context.title;
+
+        this.message = params.message;
+        if (!this.message) 
+            this.message = this.context.message;
 
         this.active = params.active;
         if (!this.active) 
@@ -42,4 +48,5 @@ define(['jquery', 'jquery.validate'], function ($) {
         }
     }
 
+    return { viewModel: componentViewModel, template: htmlString }; 
 });

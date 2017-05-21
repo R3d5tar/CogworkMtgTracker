@@ -19,6 +19,7 @@ requirejs.config({
 requirejs(
     ["scripts/classes/gamesmanager", "ko", 'jquery', "scripts/log", "scripts/ui", "scripts/api", "scripts/koConfig", "scripts/storage", "scripts/tools/utils"],
     function (GamesManager, ko, $, log, ui, api, _, storage, utils) {
+
         function tryLoadGamesManagerFromUrl() {
             if (window.location.hash.startsWith("#load=")) {
                 var loadString = window.location.hash.substr(6);
@@ -42,8 +43,7 @@ requirejs(
             api: api,
             log: log
         }
-
-        //TODO: feature-support for merging these two...
+        
         var gamesManagerFromUrl = tryLoadGamesManagerFromUrl();
         if (gamesManagerFromUrl != null) {
             viewModel.manager = gamesManagerFromUrl;
@@ -57,7 +57,7 @@ requirejs(
         };
 
         api.init(viewModel.manager);
-        
+
         ko.applyBindings(viewModel);
     }
 );

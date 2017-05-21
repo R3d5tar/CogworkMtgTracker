@@ -1,24 +1,8 @@
 define(['ko', 'jquery'], function (ko, $) {
 
-    ko.components.register('basic-modal', {
-        viewModel: { //TODO: refactor to move viewModel and template to viewModel file
-            require: 'components/basic-modal'
-        },
-        template: {
-            require: 'text!components/basic-modal.html'
-        }
-    });
-    ko.components.register('share-buttons', {
-        viewModel: { //TODO: refactor to move viewModel and template to viewModel file
-            require: 'components/share-buttons'
-        },
-        template: {
-            require: 'text!components/share-buttons.html'
-        }
-    });
-    ko.components.register('number-input', {
-        require: 'components/number-input'
-    });
+    ko.components.register('basic-modal', { require: 'components/basic-modal' });
+    ko.components.register('share-buttons', { require: 'components/share-buttons'});
+    ko.components.register('number-input', { require: 'components/number-input' });
 
     ko.bindingHandlers.fileUpload = {
         init: function (element, valueAccessor) {
@@ -39,6 +23,14 @@ define(['ko', 'jquery'], function (ko, $) {
             return item;
         } else {
             return ko.observable(item);
+        }
+    }
+
+    ko.readValue = function (item) {
+        if (ko.isObservable(item)) {
+            return ko.readValue(item());
+        } else {
+            return item;
         }
     }
 });

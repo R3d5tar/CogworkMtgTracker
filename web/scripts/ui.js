@@ -7,11 +7,6 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
         this.activeGame = null;
 
         /* modals */
-        // // use for trouble shooting, when necesary
-        // this.firstModal = new Modal(function () {
-        //     alert('OK');
-        //     this.active(false);
-        // });
 
         this.startGameModal = new Modal(
             function ok() {
@@ -193,17 +188,31 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
         });
         this.importStateDialog.fileObject = ko.observable();
 
+        this.confirmDialog = new Modal(function ok() {
+            var _ = self.confirmDialog;
+            _.callback();
+            _.active(false);
+        });
+        this.confirmDialog.title = ko.observable();
+        this.confirmDialog.message = ko.observable();
+        this.confirmDialog.show = function (ctx) {
+            var _ = self.confirmDialog;
+            _.callback = ctx.callback;
+            _.title(ko.readValue(ctx.title));
+            _.message(ko.readValue(ctx.message));
+            _.active(true);
+        }
 
         /* generic logic */
         this.modals = ko.observableArray([
-            //this.firstModal, 
             this.startGameModal,
             this.joinPlayerModal,
             this.resetAllModal,
             this.dealCombatDamageModal,
             this.gainLifeModal,
             this.exportStateDialog,
-            this.importStateDialog
+            this.importStateDialog,
+            this.confirmDialog
         ]);
 
         this.modalActive = ko.computed(function () {
