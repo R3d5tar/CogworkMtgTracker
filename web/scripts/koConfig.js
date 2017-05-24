@@ -1,8 +1,4 @@
-define(['ko', 'jquery'], function (ko, $) {
-
-    ko.components.register('basic-modal', { require: 'components/basic-modal' });
-    ko.components.register('share-buttons', { require: 'components/share-buttons'});
-    ko.components.register('number-input', { require: 'components/number-input' });
+define(['ko', 'jquery', 'components/confirm-dialog'], function (ko, $, confirmDialog) {
 
     ko.bindingHandlers.fileUpload = {
         init: function (element, valueAccessor) {
@@ -33,4 +29,20 @@ define(['ko', 'jquery'], function (ko, $) {
             return item;
         }
     }
+
+    ko.components.register('basic-modal', {
+        require: 'components/basic-modal'
+    });
+    ko.components.register('share-buttons', {
+        require: 'components/share-buttons'
+    });
+    ko.components.register('number-input', {
+        require: 'components/number-input'
+    });
+    
+    ko.components.register(
+        confirmDialog.viewModel.instance.name(),
+        confirmDialog);
+    
+
 });

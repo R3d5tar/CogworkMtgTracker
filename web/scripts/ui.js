@@ -8,7 +8,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
 
         /* modals */
 
-        this.startGameModal = new Modal(
+        this.startGameModal = new Modal("startGameModal",
             function ok() {
                 this.active(false);
                 var game = api.startGame(
@@ -30,7 +30,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         }
 
-        this.joinPlayerModal = new Modal(
+        this.joinPlayerModal = new Modal("joinPlayerModal",
             function ok() {
                 this.active(false);
                 var _ = self.joinPlayerModal;
@@ -74,7 +74,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         }
 
-        this.resetAllModal = new Modal(
+        this.resetAllModal = new Modal("resetAllModal",
             function ok() {
                 this.active(false);
                 api.resetAll();
@@ -88,7 +88,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         };
 
-        this.dealCombatDamageModal = new Modal(
+        this.dealCombatDamageModal = new Modal("dealCombatDamageModal",
             function ok() {
                 this.active(false);
                 var _ = self.dealCombatDamageModal;
@@ -123,7 +123,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         }
 
-        this.gainLifeModal = new Modal(
+        this.gainLifeModal = new Modal("gainLifeModal",
             function ok() {
                 this.active(false);
                 var _ = self.gainLifeModal;
@@ -158,7 +158,7 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         }
 
-        this.exportStateDialog = new Modal();
+        this.exportStateDialog = new Modal("exportStateDialog");
         this.exportStateDialog.download = ko.observable();
         this.exportStateDialog.filename = ko.computed(function () {
             return "CogworkMtgTracker-" + utils.filenameTimestamp() + ".json";
@@ -174,34 +174,22 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             _.active(true);
         }
 
-        this.importStateDialog = new Modal(function ok() {
-            var _ = self.importStateDialog;
-            var file = _.fileObject()
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                //TODO: options: merge? or replace??
-                api.importFromFile(e.target.result);
-                _.active(false);
-                _.fileObject(null);
-            };
-            reader.readAsText(file);
-        });
+        this.importStateDialog = new Modal("importStateDialog",
+            function ok() {
+                var _ = self.importStateDialog;
+                var file = _.fileObject()
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //TODO: options: merge? or replace??
+                    api.importFromFile(e.target.result);
+                    _.active(false);
+                    _.fileObject(null);
+                };
+                reader.readAsText(file);
+            });
         this.importStateDialog.fileObject = ko.observable();
 
-        this.confirmDialog = new Modal(function ok() {
-            var _ = self.confirmDialog;
-            _.callback();
-            _.active(false);
-        });
-        this.confirmDialog.title = ko.observable();
-        this.confirmDialog.message = ko.observable();
-        this.confirmDialog.show = function (ctx) {
-            var _ = self.confirmDialog;
-            _.callback = ctx.callback;
-            _.title(ko.readValue(ctx.title));
-            _.message(ko.readValue(ctx.message));
-            _.active(true);
-        }
+        
 
         /* generic logic */
         this.modals = ko.observableArray([
@@ -211,16 +199,26 @@ define(['ko', 'sprintf', './api', './log', './models/Modal', './tools/utils'], f
             this.dealCombatDamageModal,
             this.gainLifeModal,
             this.exportStateDialog,
-            this.importStateDialog,
-            this.confirmDialog
+            this.importStateDialog
         ]);
+        this.dynamicModals = ko.observableArray([]);
+
+        this.showDialog = function (dialogName, ctx) {
+            var dialog = self.modals().find(function (modal) { return modal.name() === dialogName; });
+            if (dialog == null) {
+                dialog = self.dynamicModals().find(function (modal) { return modal.name() === dialogName; });
+            }
+            dialog.show(ctx);
+        }
 
         this.modalActive = ko.computed(function () {
             return this.modals().some(function (_) { return _.active() })
+                || this.dynamicModals().some(function (_) { return _.active() });
         }, this);
 
         this.closeModal = function () {
             self.modals().forEach(function (_) { _.active(false); });
+            self.dynamicModals().forEach(function (_) { _.active(false); });
             return true; //ensure other actions.
         }.bind(this);
 

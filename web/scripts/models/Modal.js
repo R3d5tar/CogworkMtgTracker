@@ -1,6 +1,7 @@
 define(['ko'], function (ko) {
 
-    return function Modal(okCallback, cancelCallback) {
+    return function Modal(name, okCallback, cancelCallback) {
+        this.name = ko.observable(name);
         this.active = ko.observable(false);
         this.okCallback = okCallback;
         this.cancelCallback = cancelCallback;
