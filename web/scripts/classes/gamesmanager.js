@@ -1,4 +1,4 @@
-define(['ko', './Game', 'sprintf', 'moment', './../tools/utils'], function (ko, Game, sprintf, moment, utils) {
+define(['ko', './Game', 'sprintf', 'moment', './../tools/utils'], function (ko, Game, sprintf, moment, utils) {r
 
     var GamesManager = function GamesManager() {
         var self = this;
