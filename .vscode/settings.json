@@ -1,3 +1,7 @@
 {
-    "eslint.enable": true
+    "eslint.enable": true,
+    "cucumberautocomplete.steps": [
+        "features/step_definitions/*.js"
+    ],
+    "cucumberautocomplete.syncfeatures": true
 }

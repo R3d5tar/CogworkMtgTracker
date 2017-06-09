@@ -3,6 +3,6 @@
         "target": "ES5"
     },
     "exclude": [
-        // "node_modules"
+        "bower_components"
     ]
 }
