@@ -1,0 +1,14 @@
+<label data-bind="text: label"></label>
+<button type="button" class="button-squared" data-bind="click: adjust.bind($data, -5)">
+    -5
+</button>
+<button type="button" class="button-primary button-squared" data-bind="click: adjust.bind($data, -1)">
+    -1
+</button>
+<input type="number" data-bind="value: value, attr: {required: required, min: min, max: max}" />
+<button type="button" class="button-primary button-squared" data-bind="click: adjust.bind($data, +1)">
+    +1
+</button>
+<button type="button" class="button-squared" data-bind="click: adjust.bind($data, +5)">
+    +5
+</button>

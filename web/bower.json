@@ -1,0 +1,31 @@
+{
+  "name": "coqwork-mtg-tracker.web",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "R3d5tar"
+  ],
+  "license": "MIT",
+  "homepage": "https://r3d5tar.github.io/CogworkMtgTracker/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "skeleton": "~2.0.4",
+    "jquery": "~3.2.1",
+    "moment": "momentjs#~2.18.1",
+    "sprintf": "~1.0.3",
+    "knockout": "~3.4.2",
+    "requirejs": "~2.3.3",
+    "text": "requirejs-text#~2.0.15",
+    "font-awesome": "Font-Awesome#~4.7.0",
+    "jquery-validation": "jquery.validation#~1.16.0",
+    "rpg-awesome": "~1.0.0",
+    "msgpack-lite": "~0.1.26"
+  }
+}
