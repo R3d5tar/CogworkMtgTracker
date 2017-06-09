@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Cogwork MTG Tracker</title>
+    <meta property="og:title" content="Cogwork MTG Tracker" />
+    <meta name="description" content="Keeping track of your games, the easy way." />
+    <meta property="og:description" content="Keeping track of your games, the easy way." />
+    <meta property="og:url" content="https://r3d5tar.github.io/CogworkMtgTracker/web/" />
+    <meta property="og:image" content="images/preview-text-480x360.jpg" />
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="bower_components/skeleton/css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/skeleton/css/skeleton.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/rpg-awesome/css/rpg-awesome.min.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+</head>
+
+<body data-bind="css: {'modal-open': ui.modalActive}">
+
+    <!-- Main Body-->
+    <div class="container">
+        <header class="row">
+            <div class="one-third column">
+                <h1>Cog<wbr>work MTG Tracker</h1>
+            </div>
+            <div class="intro two-thirds column">
+                <p>
+                    A web-based tracking tool for (multiplayer) Magic: The Gathering games-states, like players and life totals. Primary function
+                    is keeping track of life totals for multiple players during the game, but the ulitmate goal is to be
+                    able to track various game related objects and counters.
+                </p>
+            </div>
+        </header>
+
+        <main class="row">
+
+            <div class="row actions">
+                <div class="one-third column">
+                    <h3><i class="ra ra-tower ra-fw" aria-hidden="true"></i> Setup</h3>
+
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'startGameModal')">
+                        <i class="fa fa-play-circle fa-lg fa-fw" aria-hidden="true"></i>
+                        start game
+                    </button>
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'joinPlayerModal'), enable: manager.hasGame">
+                        <i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>
+                        join player
+                    </button>
+                    <button class="u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'resetAllModal')">
+                        <i class="ra ra-demolish ra-lg ra-fw" aria-hidden="true"></i>
+                        reset all
+                    </button>
+
+
+                    <button class="u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'exportStateDialog')">
+                        <i class="fa fa-share fa-lg fa-fw" aria-hidden="true"></i>
+                        export state
+                    </button>
+                    <button class="u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'importStateDialog')">
+                        <i class="fa fa-upload fa-lg fa-fw" aria-hidden="true"></i>
+                        import state
+                    </button>
+
+                    <!-- TODO: disable when no games exist -->
+                    <!--
+                    <button class="button-primary">register commander</button>
+                    <button>remove player</button>
+                    <button>remove commander</button>
+                    <button>end game</button>
+                    
+                    <button>switch game</button>-->
+                    <!--<button data-bind="click: ui.firstModal.show">first modal</button>-->
+                </div>
+
+                <div class="one-third column">
+                    <h3><i class="ra ra-bleeding-hearts ra-fw" aria-hidden="true"></i> Life</h3>
+
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'dealCombatDamageModal'), enable: manager.hasTeam">
+                        <i class="ra ra-battered-axe ra-lg ra-fw" aria-hidden="true"></i>
+                        deal damage
+                        
+                    </button>
+                    <button class="button-primary u-max-full-width" data-bind="click: ui.showDialog.bind($data, 'gainLifeModal'), enable: manager.hasTeam">
+                        <i class="ra ra-heart-bottle ra-lg ra-fw" aria-hidden="true"></i>
+                        gain life
+                    </button>
+                    <!--
+                    <button data-bind="click: ui.adjustLifeModal.show">adjust life</button>
+                    <button data-bind="click: ui.setLifeModal.show">set life</button>-->
+                </div>
+
+                <!--<div class="one-third column">
+                    <h3><i class="ra ra-perspective-dice-three ra-fw" aria-hidden="true"></i> Counters</h3>
+
+                    <button class="button-primary">
+                        <i class="fa fa-plus-square-o fa-lg fa-fw" aura-hidden="true"></i>
+                        increment counter
+                    </button>
+                    <button>
+                        <i class="fa fa-wrench fa-lg fa-fw" aura-hidden="true"></i>
+                        adjust counter</button>
+                    <button>
+                        <i class="fa fa-crosshairs fa-lg fa-fw" aura-hidden="true"></i>
+                        set counter</button>
+                </div>-->
+            </div>
+
+            <!--<div class="row command">
+                &gt; <span class="input" contenteditable>start game</span>
+            </div>-->
+
+            <div class="row">
+                <pre><code id="log"></code></pre>
+            </div>
+
+            <div class="row display">
+                <div class="row" data-bind="foreach: manager.games">
+                    <div class="game">
+                        <div class="row gameheader">
+                            <div class="two-thirds column">
+                                <h2 class="gamename">
+                                    <i class="fa fa-minus-square-o fa-fw"></i>
+                                    <span data-bind="text: name"></span>
+                                </h2>
+                            </div>
+                            <div class="one-third column">
+                                <p>Starting life: <span data-bind="text: startingLifeTotal"></span></p>
+                                <p class="id" data-bind="text: id"></p>
+                            </div>
+                        </div>
+                        <div class="row" data-bind="foreach: teams">
+                            <!-- ko if: ( ($index() + 1) % 4 == 0) -->
+                            <div class="u-cf"></div>
+                            <!-- /ko  -->
+                            <div class="team one-third column">
+                                <div class="row">
+                                    <h4 class="life">
+                                        <i class="ra ra-glass-heart ra-fw" aria-hidden="true"></i>
+                                        <span data-bind="text: lifeTotal"></span>
+                                        <h4>
+                                </div>
+                                <div class="row">
+                                    <h3 class="name" data-bind="text: name"></h3>
+                                    <p class="id" data-bind="text: id"></p>
+                                </div>
+                                <div class="row" data-bind="foreach: players">
+                                    <div class="player one-half column">
+                                        <!-- ko if: ($parent.players.length > 1) -->
+                                        <p class="name" data-bind="text: name"></p>
+                                        <!-- /ko -->
+                                        <p class="id" data-bind="text: id"></p>
+                                    </div>
+                                </div>
+                                <button class="notext" data-bind="
+                                    click: $root.ui.showDialog.bind($data, 'confirm-dialog', {
+                                        callback: $root.api.removeTeam.bind($root.api, $parent.id(), $data.id()),
+                                        title: ko.computed( function () { return 'Exile ' + $data.name() + '?' } ),
+                                        message: ko.computed( function () { return 'Do you really want to exile ' + $data.name() + '?' } )
+                                    })">                               
+                                    <i class="fa fa-window-close fa-fw" aria-valuetext="remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="row">
+            GitHub Src: <a href="https://github.com/R3d5tar/CogworkMtgTracker" target="_blank">https://github.com/R3d5tar/CogworkMtgTracker</a>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div class="backplane" data-bind="click: ui.closeModal">
+        <div class="modal-inner" data-bind="with: ui">
+            <!-- ko foreach: dynamicModals -->
+            <div data-bind="component: name"></div>
+            <!-- /ko -->
+
+            <basic-modal params="title: 'Reset all',
+                                 message: 'This will remove all games including all teams, all players, all life totals, all commanders and all tracked counters.',
+                                 buttonPositive: 'Reset',
+                                 buttonNegative: 'Abort',
+                                 with: resetAllModal">
+                <label>Are you sure?</label>
+                <label>
+                    <input name="confirm" type="checkbox" required data-bind="checked: sure"/>
+                        <span class="label-body" >Yes, I am!</span>
+                    </label>
+            </basic-modal>
+
+            <basic-modal params="active: startGameModal.active, 
+                                 okCallback: startGameModal.okCallback,
+                                 cancelCallback: startGameModal.cancelCallback,
+                                 title: 'Start new game',
+                                 message: null,
+                                 with: startGameModal">
+                <label>Game name:</label>
+                <input name="name" type="text" data-bind="value: gameName" required />
+                <number-input params="value: startingLifeTotal, 
+                                      label: 'Players (or teams) starting life total:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
+            </basic-modal>
+
+            <basic-modal params="active: joinPlayerModal.active, 
+                                 okCallback: joinPlayerModal.okCallback,
+                                 cancelCallback: joinPlayerModal.cancelCallback,
+                                 title: 'Join player to game',
+                                 message: null,
+                                 with: joinPlayerModal">
+                <label>Player name:</label>
+                <input name="name" type="text" data-bind="value: playerName" required />
+                <label>Will join game:</label>
+                <div data-bind="foreach: games">
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Will join team:</label>
+                <select data-bind="options: teams,
+                       optionsText: 'name',
+                       value: teamSelected"></select>
+            </basic-modal>
+
+            <basic-modal params="active: dealCombatDamageModal.active, 
+                                 okCallback: dealCombatDamageModal.okCallback,
+                                 cancelCallback: dealCombatDamageModal.cancelCallback,
+                                 title: 'Deal combat damage',
+                                 message: null,
+                                 with: dealCombatDamageModal">
+                <label>Game:</label>
+                <div data-bind="foreach: games">
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Player to receive damage:</label>
+                <div data-bind="foreach: players">
+                    <label>
+                        <input type="radio" name="radioPlayer" data-bind="checked: $parent.playerSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span>
+                            <sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <number-input params="value: damage, 
+                                      label: 'Combat damage:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
+                <i>
+                    <p data-bind="if: playerSelected">
+                        <span data-bind="text: playerSelected().name"></span>'s life after damage: <span data-bind="text: lifeAfterDamage"></span>
+                    </p>
+                    <p data-bind="ifnot: playerSelected">&nbsp;</p>
+                </i>
+            </basic-modal>
+
+            <basic-modal params="title: 'Gain life',
+                                 message: null,
+                                 with: gainLifeModal">
+                <label>Game:</label>
+                <div data-bind="foreach: games">
+                    <label>
+                        <input type="radio" name="radioGames" data-bind="checked: $parent.gameSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span><sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <label>Player who gains life:</label>
+                <div data-bind="foreach: players">
+                    <label>
+                        <input type="radio" name="radioPlayer" data-bind="checked: $parent.playerSelected, checkedValue: $data" required aria-required="true" />
+                        <span class="label-body" >
+                            <span data-bind="text: name"></span><sup data-bind="text: id"></sup>
+                        </span>
+                    </label>
+                </div>
+                <number-input params="value: lifeGain, 
+                                      label: 'Life gain:',
+                                      required: true,
+                                      min: 0" >
+                </number-input>
+                <i>
+                    <p data-bind="if: playerSelected">
+                        <span data-bind="text: playerSelected().name"></span>'s life after gaining life: <span data-bind="text: lifeAfterDamage"></span>
+                    </p>
+                    <p data-bind="ifnot: playerSelected">&nbsp;</p>
+                </i>
+
+            </basic-modal>
+
+            <basic-modal params="title: 'Export state',
+                                 message: 'Use the below links to download the current state or share it with a friend.',
+                                 hideNegative: true,
+                                 buttonPositive: 'close',
+                                 with: exportStateDialog">
+                <a class="button" data-bind="attr: { href: download, download: filename }">
+                    <i class="fa fa-download fa-fw" aria-hidden="true"></i> Download
+                </a>
+
+                <share-buttons params="text: shareText, url: shareUrl"></share-buttons>
+
+            </basic-modal>
+
+            <basic-modal params="title: 'Import State',
+                                 message: 'Upload a previous downloaded game state file and import it.',
+                                 buttonPositive: 'import',
+                                 with: importStateDialog">
+                <input type="file" name="file" data-bind="fileUpload: fileObject" required="true" />
+            </basic-modal>
+        </div>
+    </div>
+
+    <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+</body>
+</html>

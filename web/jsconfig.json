@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "target": "ES5"
+    },
+    "exclude": [
+        "bower_components"
+    ]
+}

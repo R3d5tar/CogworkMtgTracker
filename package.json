@@ -1,0 +1,17 @@
+{
+  "name": "coqwork-mtg-tracker",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/R3d5tar/CogworkMtgTracker"
+  },
+  "scripts": {
+    "debug": "node --nolazy --debug-brk=5858 ./node_modules/cucumber/bin/cucumber.js",
+    "test": "./node_modules/.bin/cucumberjs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cucumber": "latest"
+  }
+}
