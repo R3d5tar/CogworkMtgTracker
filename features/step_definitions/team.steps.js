@@ -5,7 +5,7 @@ var assert = require('assert');
 var requirejs = require('requirejs');
 
 defineSupportCode(function (context) {
-    requirejs(['scripts/classes/team'], function (Team) {
+    requirejs(['scripts/classes/Team'], function (Team) {
         var Given = context.Given;
         var When = context.When;
         var Then = context.Then;
