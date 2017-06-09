@@ -5,13 +5,13 @@ if (!requirejs) {
 requirejs.config({
     baseUrl: '',
     paths: {
-        jquery: 'bower_components/jquery/dist/jquery',
-        'jquery.validate': 'bower_components/jquery-validation/dist/jquery.validate.min',
-        ko: 'bower_components/knockout/dist/knockout',
-        moment: 'bower_components/moment/min/moment.min',
-        sprintf: 'bower_components/sprintf/src/sprintf',
-        text: 'bower_components/text/text',
-        msgpack: 'bower_components/msgpack-lite/dist/msgpack.min'
+        jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min',
+        'jquery.validate': 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min',
+        ko: 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min',
+        moment: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min',
+        sprintf: 'https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.1/sprintf.min',
+        text: 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min',
+        msgpack: 'https://cdnjs.cloudflare.com/ajax/libs/msgpack-lite/0.1.26/msgpack.min'
     }
 });
 
