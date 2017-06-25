@@ -1,4 +1,4 @@
-define(['./tools/utils', './classes/GamesManager'], function (utils, GamesManager) {
+define(['./tools/utils', './classes/gamesmanager'], function (utils, GamesManager) {
     var api = new function () {
         var _gamesManager = null;
 
