@@ -21,7 +21,7 @@ var {
 } = require('cucumber');
 
 defineSupportCode(function (context) {
-    requirejs(['scripts/classes/GamesManager'], function (GamesManager) {
+    requirejs(['scripts/classes/gamesmanager'], function (GamesManager) {
 
         var setWorldConstructor = context.setWorldConstructor;
 
