@@ -1,4 +1,4 @@
-define(['scripts/classes/GamesManager'], function (GameManager) {
+define(['scripts/classes/gamesmanager'], function (GameManager) {
 
     var storage = new function () {
         var key = "cogwork-v1";

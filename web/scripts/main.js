@@ -17,7 +17,7 @@ requirejs.config({
 
 
 requirejs(
-    ["scripts/classes/GamesManager", "ko", 'jquery', "scripts/log", "scripts/ui", "scripts/api", "scripts/koConfig", "scripts/storage", "scripts/tools/utils"],
+    ["scripts/classes/gamesmanager", "ko", 'jquery', "scripts/log", "scripts/ui", "scripts/api", "scripts/koConfig", "scripts/storage", "scripts/tools/utils"],
     function (GamesManager, ko, $, log, ui, api, _, storage, utils) {
 
         function tryLoadGamesManagerFromUrl() {
