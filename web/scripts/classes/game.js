@@ -1,4 +1,4 @@
-define(['ko', 'sprintf', 'moment', './team', './player'], function (ko, sprintf, moment, Team, Player) {
+define(['ko', 'sprintf', 'moment', './Team', './Player'], function (ko, sprintf, moment, Team, Player) {
 
     var Game = function (parent, id) {
         var _id = sprintf.sprintf("game-%s", moment().format("YYYY/MM/DD-HH:mm:ss.SSS"));

@@ -1,4 +1,4 @@
-define(['ko', './player', 'scripts/tools/utils'], function (ko, Player, utils) {
+define(['ko', './Player', 'scripts/tools/utils'], function (ko, Player, utils) {
 
     var Team = function (parent, lifeTotal, id) {
         var _id = "team-" + utils.guid();
